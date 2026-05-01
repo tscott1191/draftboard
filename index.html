@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superflex Top-48 Draft Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2d6a3f;
+    --green-light: #3d8a55;
+    --gold: #c8a84b;
+    --cream: #f5f0e8;
+    --dark: #1a1a1a;
+    --muted: #888;
+    --row-alt: #ede8de;
+    --struck: #b0a898;
+    --league-a: #4fa3d1;
+    --league-b: #b97fe0;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–dark);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+padding: 24px 16px 48px;
+background-image: repeating-linear-gradient(
+0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px
+);
+}
+
+header { text-align: center; margin-bottom: 20px; }
+header h1 {
+font-family: ‘Bebas Neue’, cursive;
+font-size: clamp(2rem, 6vw, 3.4rem);
+color: var(–gold);
+letter-spacing: 0.06em;
+line-height: 1;
+text-shadow: 0 2px 12px rgba(200,168,75,0.3);
+}
+header p {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.72rem;
+color: var(–muted);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+margin-top: 5px;
+}
+
+/* SETUP SCREEN */
+#setup-screen {
+max-width: 500px;
+margin: 0 auto;
+background: #111;
+border: 1px solid #2a2a2a;
+border-radius: 6px;
+padding: 24px 20px;
+}
+
+.setup-title {
+font-family: ‘Bebas Neue’, cursive;
+font-size: 1.1rem;
+letter-spacing: 0.14em;
+color: var(–gold);
+margin-bottom: 18px;
+}
+
+.setup-field { margin-bottom: 14px; }
+.setup-field label {
+display: block;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 5px;
+}
+.setup-field input, .setup-field select {
+width: 100%;
+background: #1a1a1a;
+border: 1px solid #333;
+border-radius: 3px;
+color: #ddd;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.82rem;
+padding: 8px 10px;
+outline: none;
+transition: border-color 0.15s;
+}
+.setup-field input:focus, .setup-field select:focus { border-color: var(–gold); }
+.setup-field select option { background: #1a1a1a; }
+
+.league-block {
+background: #161616;
+border: 1px solid #252525;
+border-radius: 4px;
+padding: 14px;
+margin-bottom: 12px;
+}
+.league-block-title {
+font-family: ‘Bebas Neue’, cursive;
+font-size: 0.9rem;
+letter-spacing: 0.12em;
+margin-bottom: 10px;
+}
+.league-block-title.a { color: var(–league-a); }
+.league-block-title.b { color: var(–league-b); }
+
+.btn-primary {
+width: 100%;
+background: var(–green);
+border: none;
+border-radius: 3px;
+color: #fff;
+font-family: ‘Bebas Neue’, cursive;
+font-size: 1rem;
+letter-spacing: 0.14em;
+padding: 11px;
+cursor: pointer;
+transition: background 0.15s;
+margin-top: 4px;
+}
+.btn-primary:hover { background: var(–green-light); }
+.btn-primary:disabled { background: #333; color: #666; cursor: default; }
+
+.setup-status {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+color: var(–muted);
+text-align: center;
+margin-top: 10px;
+min-height: 18px;
+}
+.setup-status.error { color: #e07b7b; }
+.setup-status.ok    { color: var(–green-light); }
+
+.league-select-list {
+display: flex;
+flex-direction: column;
+gap: 6px;
+margin-top: 6px;
+}
+.league-option {
+background: #1e1e1e;
+border: 1px solid #333;
+border-radius: 3px;
+padding: 8px 10px;
+cursor: pointer;
+font-size: 0.82rem;
+color: #ccc;
+font-family: ‘DM Sans’, sans-serif;
+transition: border-color 0.15s, background 0.15s;
+}
+.league-option:hover { border-color: var(–gold); background: #222; }
+.league-option .league-option-meta {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: #666;
+margin-top: 2px;
+}
+.league-option.selected { border-color: var(–gold); background: rgba(200,168,75,0.07); color: var(–gold); }
+
+/* MAIN APP */
+#app { display: none; }
+
+.league-tabs {
+display: flex;
+max-width: 680px;
+margin: 0 auto 0;
+gap: 0;
+}
+
+.league-tab {
+flex: 1;
+padding: 9px 10px;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+text-align: center;
+cursor: pointer;
+border: 1px solid #2a2a2a;
+background: #0d0d0d;
+color: #555;
+transition: all 0.15s;
+position: relative;
+}
+.league-tab:first-child { border-radius: 4px 0 0 0; }
+.league-tab:last-child  { border-radius: 0 4px 0 0; }
+
+.league-tab.active-a { color: var(–league-a); border-bottom-color: var(–league-a); background: rgba(79,163,209,0.06); }
+.league-tab.active-b { color: var(–league-b); border-bottom-color: var(–league-b); background: rgba(185,127,224,0.06); }
+
+.league-tab .sync-dot {
+display: inline-block;
+width: 6px; height: 6px;
+border-radius: 50%;
+background: #333;
+margin-left: 5px;
+vertical-align: middle;
+}
+.league-tab.synced .sync-dot   { background: var(–green-light); }
+.league-tab.syncing .sync-dot  { background: var(–gold); animation: pulse 1s infinite; }
+.league-tab.sync-err .sync-dot { background: #e07b7b; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.tap-hint {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: #444;
+text-align: center;
+margin: 10px 0 14px;
+letter-spacing: 0.06em;
+}
+.tap-hint span { color: #666; }
+
+.stats-bar {
+display: flex;
+max-width: 680px;
+margin: 0 auto 16px;
+}
+.stat-box {
+flex: 1;
+text-align: center;
+padding: 9px 6px;
+border: 1px solid #2a2a2a;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: var(–muted);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+background: #111;
+}
+.stat-box:first-child { border-radius: 0 0 0 3px; border-top: none; }
+.stat-box:last-child  { border-radius: 0 0 3px 0; border-top: none; }
+.stat-box .stat-num {
+display: block;
+font-size: 1.3rem;
+font-family: ‘Bebas Neue’, cursive;
+letter-spacing: 0.04em;
+margin-bottom: 1px;
+}
+.stat-box.mine .stat-num { color: var(–gold); }
+.stat-box.gone .stat-num { color: #555; }
+.stat-box.left .stat-num { color: var(–green-light); }
+
+.controls {
+display: flex;
+justify-content: center;
+gap: 7px;
+margin-bottom: 14px;
+flex-wrap: wrap;
+max-width: 680px;
+margin-left: auto;
+margin-right: auto;
+}
+.filter-btn {
+background: transparent;
+border: 1px solid #333;
+color: #666;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.66rem;
+letter-spacing: 0.1em;
+padding: 5px 12px;
+border-radius: 3px;
+cursor: pointer;
+transition: all 0.15s;
+text-transform: uppercase;
+}
+.filter-btn:hover { border-color: #555; color: #999; }
+.filter-btn.active { border-color: var(–gold); color: var(–gold); background: rgba(200,168,75,0.08); }
+.filter-btn.pos-QB.active { border-color: #e07b3a; color: #e07b3a; background: rgba(224,123,58,0.08); }
+.filter-btn.pos-RB.active { border-color: #4fa3d1; color: #4fa3d1; background: rgba(79,163,209,0.08); }
+.filter-btn.pos-WR.active { border-color: #5cb87a; color: #5cb87a; background: rgba(92,184,122,0.08); }
+.filter-btn.pos-TE.active { border-color: #b97fe0; color: #b97fe0; background: rgba(185,127,224,0.08); }
+
+/* MY PICKS PANEL */
+.my-picks-panel {
+max-width: 680px;
+margin: 0 auto 14px;
+background: #111;
+border: 1px solid #2a2a2a;
+border-radius: 4px;
+overflow: hidden;
+}
+.my-picks-header {
+font-family: ‘Bebas Neue’, cursive;
+font-size: 0.95rem;
+letter-spacing: 0.14em;
+color: var(–gold);
+padding: 8px 14px 7px;
+border-bottom: 1px solid #1e1e1e;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.my-picks-header .pick-count {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.66rem;
+color: #555;
+font-weight: 400;
+letter-spacing: 0.05em;
+}
+.my-picks-list {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+padding: 9px 12px 11px;
+min-height: 40px;
+}
+.my-picks-empty {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.66rem;
+color: #333;
+letter-spacing: 0.06em;
+align-self: center;
+}
+.pick-chip {
+display: flex;
+align-items: center;
+gap: 5px;
+background: rgba(200,168,75,0.1);
+border: 1px solid rgba(200,168,75,0.22);
+border-radius: 3px;
+padding: 3px 8px 3px 6px;
+font-size: 0.74rem;
+font-weight: 600;
+color: #d4b96a;
+cursor: pointer;
+transition: background 0.15s;
+}
+.pick-chip:hover { background: rgba(200,168,75,0.2); }
+.pick-chip .chip-pos { font-family: ‘DM Mono’, monospace; font-size: 0.58rem; opacity: 0.7; }
+.pick-chip .chip-rk  { font-family: ‘DM Mono’, monospace; font-size: 0.56rem; opacity: 0.4; }
+.pick-chip .chip-src {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.52rem;
+opacity: 0.5;
+background: rgba(200,168,75,0.15);
+border-radius: 2px;
+padding: 1px 3px;
+}
+
+/* BOARD */
+.board {
+max-width: 680px;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+.tier-label {
+font-family: ‘Bebas Neue’, cursive;
+font-size: 0.95rem;
+letter-spacing: 0.14em;
+color: var(–green-light);
+padding: 12px 0 4px 10px;
+border-bottom: 1px solid #2a2a2a;
+margin-top: 8px;
+}
+.player-row {
+display: flex;
+align-items: center;
+background: var(–cream);
+border-radius: 2px;
+overflow: hidden;
+cursor: pointer;
+transition: opacity 0.2s, transform 0.1s;
+user-select: none;
+position: relative;
+}
+.player-row:nth-child(even) { background: var(–row-alt); }
+.player-row:hover { transform: translateX(2px); }
+.player-row.hidden { display: none; }
+
+/* off board (drafted by others in current league) */
+.player-row.drafted { opacity: 0.28; }
+.player-row.drafted .player-name { text-decoration: line-through; color: var(–struck); }
+.player-row.drafted .rank-box { background: #555; }
+
+/* my pick in current league */
+.player-row.my-pick {
+background: #27200d !important;
+border-left: 3px solid var(–gold);
+}
+.player-row.my-pick .player-name { color: var(–gold); }
+.player-row.my-pick .rank-box { background: #7a5e18; }
+
+/* sleeper auto-drafted by others */
+.player-row.sleeper-taken { opacity: 0.28; }
+.player-row.sleeper-taken .player-name { text-decoration: line-through; color: var(–struck); }
+.player-row.sleeper-taken .rank-box { background: #555; }
+
+/* sleeper: my pick */
+.player-row.sleeper-mine {
+background: #1a2010 !important;
+border-left: 3px solid var(–green-light);
+}
+.player-row.sleeper-mine .player-name { color: #7ec89a; }
+.player-row.sleeper-mine .rank-box { background: #2a5a38; }
+
+.rank-box {
+width: 38px; min-width: 38px;
+background: var(–green);
+color: #fff;
+font-family: ‘Bebas Neue’, cursive;
+font-size: 1.05rem;
+align-self: stretch;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.2s;
+}
+.pos-badge {
+width: 34px; min-width: 34px;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+font-weight: 500;
+letter-spacing: 0.06em;
+align-self: stretch;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.pos-QB { background: rgba(224,123,58,0.18); color: #c0622a; }
+.pos-RB { background: rgba(79,163,209,0.18); color: #2e7fa8; }
+.pos-WR { background: rgba(92,184,122,0.18); color: #2e8a50; }
+.pos-TE { background: rgba(185,127,224,0.18); color: #8a4ec0; }
+
+.player-name {
+flex: 1;
+font-size: 0.9rem;
+font-weight: 600;
+color: var(–dark);
+padding: 10px 10px;
+transition: color 0.2s;
+}
+.pos-rank {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: var(–muted);
+padding-right: 6px;
+white-space: nowrap;
+}
+
+/* league indicators on each row */
+.league-dots {
+display: flex;
+gap: 3px;
+padding-right: 8px;
+align-items: center;
+}
+.ldot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: #2a2a2a;
+transition: background 0.2s;
+}
+.ldot.taken-a { background: #555; }
+.ldot.mine-a  { background: var(–league-a); box-shadow: 0 0 4px var(–league-a); }
+.ldot.taken-b { background: #555; }
+.ldot.mine-b  { background: var(–league-b); box-shadow: 0 0 4px var(–league-b); }
+
+.state-icon {
+width: 38px; min-width: 38px;
+display: flex; align-items: center; justify-content: center;
+padding: 10px 0;
+}
+.state-icon svg { width: 18px; height: 18px; }
+.icon-available { display: block; }
+.icon-drafted   { display: none; }
+.icon-mine      { display: none; }
+.player-row.drafted   .icon-available { display: none; }
+.player-row.drafted   .icon-drafted   { display: block; }
+.player-row.my-pick   .icon-available { display: none; }
+.player-row.my-pick   .icon-mine      { display: block; }
+.player-row.sleeper-taken .icon-available { display: none; }
+.player-row.sleeper-taken .icon-drafted   { display: block; }
+.player-row.sleeper-mine  .icon-available { display: none; }
+.player-row.sleeper-mine  .icon-mine      { display: block; }
+
+.bottom-bar {
+max-width: 680px;
+margin: 24px auto 0;
+display: flex;
+gap: 10px;
+justify-content: center;
+}
+.btn-sm {
+background: transparent;
+border: 1px solid #333;
+color: #555;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.66rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 7px 16px;
+border-radius: 3px;
+cursor: pointer;
+transition: all 0.15s;
+}
+.btn-sm:hover { border-color: #666; color: #888; }
+.btn-sm.danger:hover { border-color: #e07b7b; color: #e07b7b; }
+
+.sync-bar {
+max-width: 680px;
+margin: 0 auto 10px;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: #444;
+text-align: right;
+padding: 0 4px;
+}
+.sync-bar span { color: var(–green-light); }
+</style>
+
+</head>
+<body>
+
+<header>
+  <h1>Superflex Top-48</h1>
+  <p>2025 Fantasy Draft Board</p>
+</header>
+
+<!-- SETUP SCREEN -->
+
+<div id="setup-screen">
+  <div class="setup-title">Connect Your Leagues</div>
+
+  <div class="setup-field">
+    <label>Sleeper Username</label>
+    <input type="text" id="username-input" placeholder="e.g. tonybologna69" value="tonybologna69">
+  </div>
+
+<button class="btn-primary" id="load-leagues-btn">Load My Leagues</button>
+
+  <div class="setup-status" id="setup-status"></div>
+
+  <div id="league-pickers" style="display:none; margin-top:18px;">
+    <div class="league-block">
+      <div class="league-block-title a">● League 1 — Grizzly Dads</div>
+      <div class="setup-field">
+        <label>Select League</label>
+        <div class="league-select-list" id="league-list-a"></div>
+      </div>
+      <div class="setup-field" id="draft-field-a" style="display:none;">
+        <label>Select Draft</label>
+        <div class="league-select-list" id="draft-list-a"></div>
+      </div>
+    </div>
+
+```
+<div class="league-block">
+  <div class="league-block-title b">● League 2 — Susan's Dynasty</div>
+  <div class="setup-field">
+    <label>Select League</label>
+    <div class="league-select-list" id="league-list-b"></div>
+  </div>
+  <div class="setup-field" id="draft-field-b" style="display:none;">
+    <label>Select Draft</label>
+    <div class="league-select-list" id="draft-list-b"></div>
+  </div>
+</div>
+
+<button class="btn-primary" id="start-btn" disabled>Start Draft Board</button>
+```
+
+  </div>
+</div>
+
+<!-- MAIN APP -->
+
+<div id="app">
+  <div class="league-tabs">
+    <div class="league-tab" id="tab-all" data-view="ALL">All Leagues <span class="sync-dot"></span></div>
+    <div class="league-tab" id="tab-a"   data-view="A">● <span id="tab-a-name">League A</span> <span class="sync-dot"></span></div>
+    <div class="league-tab" id="tab-b"   data-view="B">● <span id="tab-b-name">League B</span> <span class="sync-dot"></span></div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-box mine"><span class="stat-num" id="mine-count">0</span>My Picks</div>
+    <div class="stat-box gone"><span class="stat-num" id="taken-count">0</span>Off Board</div>
+    <div class="stat-box left"><span class="stat-num" id="avail-count">48</span>Available</div>
+  </div>
+
+  <div class="tap-hint">
+    <span>1 tap</span> = off board &nbsp;·&nbsp; <span>2 taps</span> = my pick ⭐ &nbsp;·&nbsp; <span>3 taps</span> = undo &nbsp;·&nbsp; Sleeper syncs automatically
+  </div>
+
+  <div class="sync-bar">Last sync: <span id="last-sync-time">—</span></div>
+
+  <div class="controls">
+    <button class="filter-btn active" data-filter="ALL">All</button>
+    <button class="filter-btn" data-filter="MINE">⭐ My Picks</button>
+    <button class="filter-btn pos-QB" data-filter="QB">QB</button>
+    <button class="filter-btn pos-RB" data-filter="RB">RB</button>
+    <button class="filter-btn pos-WR" data-filter="WR">WR</button>
+    <button class="filter-btn pos-TE" data-filter="TE">TE</button>
+  </div>
+
+  <div class="my-picks-panel">
+    <div class="my-picks-header">
+      My Roster
+      <span class="pick-count" id="picks-label">0 players</span>
+    </div>
+    <div class="my-picks-list" id="picks-list">
+      <span class="my-picks-empty">No picks yet</span>
+    </div>
+  </div>
+
+  <div class="board" id="board"></div>
+
+  <div class="bottom-bar">
+    <button class="btn-sm" id="sync-now-btn">↻ Sync Sleeper Now</button>
+    <button class="btn-sm" id="settings-btn">⚙ Settings</button>
+    <button class="btn-sm danger" id="reset-btn">Reset Manual Picks</button>
+  </div>
+</div>
+
+<script>
+// ─── PLAYER DATA ───────────────────────────────────────────────────────────────
+const players = [
+  { rk:1,  name:"Jeremiyah Love",    pos:"RB", posRank:1,  tier:1 },
+  { rk:2,  name:"Jordyn Tyson",      pos:"WR", posRank:1,  tier:2 },
+  { rk:3,  name:"Carnell Tate",      pos:"WR", posRank:2,  tier:2 },
+  { rk:4,  name:"Fernando Mendoza",  pos:"QB", posRank:1,  tier:2 },
+  { rk:5,  name:"Makai Lemon",       pos:"WR", posRank:3,  tier:3 },
+  { rk:6,  name:"KC Concepcion",     pos:"WR", posRank:4,  tier:3 },
+  { rk:7,  name:"Jadarian Price",    pos:"RB", posRank:2,  tier:3 },
+  { rk:8,  name:"Kenyon Sadiq",      pos:"TE", posRank:1,  tier:4 },
+  { rk:9,  name:"Ty Simpson",        pos:"QB", posRank:2,  tier:4 },
+  { rk:10, name:"Omar Cooper",       pos:"WR", posRank:5,  tier:4 },
+  { rk:11, name:"Denzel Boston",     pos:"WR", posRank:6,  tier:5 },
+  { rk:12, name:"Germie Bernard",    pos:"WR", posRank:7,  tier:5 },
+  { rk:13, name:"Antonio Williams",  pos:"WR", posRank:8,  tier:5 },
+  { rk:14, name:"Jonah Coleman",     pos:"RB", posRank:3,  tier:5 },
+  { rk:15, name:"Chris Bell",        pos:"WR", posRank:9,  tier:5 },
+  { rk:16, name:"Eli Stowers",       pos:"TE", posRank:2,  tier:5 },
+  { rk:17, name:"Carson Beck",       pos:"QB", posRank:3,  tier:5 },
+  { rk:18, name:"Drew Allar",        pos:"QB", posRank:4,  tier:5 },
+  { rk:19, name:"Nick Singleton",    pos:"RB", posRank:4,  tier:6 },
+  { rk:20, name:"De'Zhaun Stribling",pos:"WR", posRank:10, tier:6 },
+  { rk:21, name:"Zachariah Branch",  pos:"WR", posRank:11, tier:6 },
+  { rk:22, name:"Kaytron Allen",     pos:"RB", posRank:5,  tier:6 },
+  { rk:23, name:"Eli Raridon",       pos:"TE", posRank:3,  tier:6 },
+  { rk:24, name:"Oscar Delp",        pos:"TE", posRank:4,  tier:6 },
+  { rk:25, name:"Ja'Kobi Lane",      pos:"WR", posRank:12, tier:6 },
+  { rk:26, name:"Emmett Johnson",    pos:"RB", posRank:6,  tier:6 },
+  { rk:27, name:"Elijah Sarratt",    pos:"WR", posRank:13, tier:7 },
+  { rk:28, name:"Chris Brazzell",    pos:"WR", posRank:14, tier:7 },
+  { rk:29, name:"Ted Hurst",         pos:"WR", posRank:15, tier:7 },
+  { rk:30, name:"Kaelon Black",      pos:"RB", posRank:7,  tier:7 },
+  { rk:31, name:"Max Klare",         pos:"TE", posRank:5,  tier:7 },
+  { rk:32, name:"Demond Claiborne",  pos:"RB", posRank:8,  tier:7 },
+  { rk:33, name:"Cole Payton",       pos:"QB", posRank:5,  tier:7 },
+  { rk:34, name:"Skyler Bell",       pos:"WR", posRank:16, tier:7 },
+  { rk:35, name:"Taylen Green",      pos:"QB", posRank:6,  tier:7 },
+  { rk:36, name:"Mike Washington",   pos:"RB", posRank:9,  tier:7 },
+  { rk:37, name:"Cade Klubnik",      pos:"QB", posRank:7,  tier:7 },
+  { rk:38, name:"Justin Joly",       pos:"TE", posRank:6,  tier:8 },
+  { rk:39, name:"Caleb Douglas",     pos:"WR", posRank:17, tier:8 },
+  { rk:40, name:"Malachi Fields",    pos:"WR", posRank:18, tier:8 },
+  { rk:41, name:"Brenen Thompson",   pos:"WR", posRank:19, tier:8 },
+  { rk:42, name:"Adam Randall",      pos:"RB", posRank:10, tier:8 },
+  { rk:43, name:"Marlin Klein",      pos:"TE", posRank:7,  tier:8 },
+  { rk:44, name:"Bryce Lance",       pos:"WR", posRank:20, tier:8 },
+  { rk:45, name:"Eli Heidenreich",   pos:"RB", posRank:11, tier:8 },
+  { rk:46, name:"Zavion Thomas",     pos:"WR", posRank:21, tier:8 },
+  { rk:47, name:"Tanner Koziol",     pos:"TE", posRank:8,  tier:8 },
+  { rk:48, name:"Barion Brown",      pos:"WR", posRank:22, tier:9 },
+];
+
+// normalize name for fuzzy matching against Sleeper
+function normName(s) {
+  return s.toLowerCase()
+    .replace(/['\u2019]/g,'')
+    .replace(/[^a-z0-9]/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+
+// ─── STATE ─────────────────────────────────────────────────────────────────────
+const SK = "sf48_v3";
+let state = JSON.parse(localStorage.getItem(SK) || "null") || {
+  userId: null,
+  username: null,
+  leagues: { a: null, b: null },   // { id, name, draftId }
+  manual: {},                       // rk -> 0/1/2 per-league: { a: 0, b: 0 }
+  sleeper: { a: {}, b: {} },        // rk -> { taken: bool, mine: bool }
+  activeView: "ALL",
+  filter: "ALL",
+};
+
+function save() { localStorage.setItem(SK, JSON.stringify(state)); }
+
+// ─── SLEEPER API ───────────────────────────────────────────────────────────────
+const API = "https://api.sleeper.app/v1";
+
+async function sleeperGet(path) {
+  const r = await fetch(API + path);
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}
+
+async function fetchUserByUsername(username) {
+  return sleeperGet("/user/" + encodeURIComponent(username));
+}
+
+async function fetchUserLeagues(userId, season) {
+  return sleeperGet("/user/" + userId + "/leagues/nfl/" + season);
+}
+
+async function fetchLeagueDrafts(leagueId) {
+  return sleeperGet("/league/" + leagueId + "/drafts");
+}
+
+async function fetchDraftPicks(draftId) {
+  return sleeperGet("/draft/" + draftId + "/picks");
+}
+
+// Match a Sleeper player name to one of our players
+function matchPlayer(sleeperFirst, sleeperLast) {
+  const full = normName((sleeperFirst || "") + " " + (sleeperLast || ""));
+  return players.find(p => normName(p.name) === full) || null;
+}
+
+async function syncDraft(league, slotKey) {
+  if (!league || !league.draftId) return;
+  setTabSync(slotKey, "syncing");
+  try {
+    const picks = await fetchDraftPicks(league.draftId);
+    const result = {};
+    for (const pick of picks) {
+      const meta = pick.metadata || {};
+      const matched = matchPlayer(meta.first_name, meta.last_name);
+      if (!matched) continue;
+      const isMine = pick.picked_by === state.userId;
+      result[matched.rk] = { taken: !isMine, mine: isMine };
+    }
+    state.sleeper[slotKey] = result;
+    save();
+    setTabSync(slotKey, "synced");
+    document.getElementById("last-sync-time").textContent = new Date().toLocaleTimeString();
+    renderBoard();
+    updateStats();
+    updatePicksPanel();
+  } catch(e) {
+    setTabSync(slotKey, "sync-err");
+    console.warn("Sync failed for", slotKey, e);
+  }
+}
+
+async function syncAll() {
+  await Promise.all([
+    syncDraft(state.leagues.a, "a"),
+    syncDraft(state.leagues.b, "b"),
+  ]);
+}
+
+function setTabSync(slot, status) {
+  const tabId = slot === "a" ? "tab-a" : "tab-b";
+  const tab = document.getElementById(tabId);
+  tab.classList.remove("synced", "syncing", "sync-err");
+  tab.classList.add(status);
+}
+
+// ─── SETUP FLOW ────────────────────────────────────────────────────────────────
+let allLeagues = [];
+let selectedLeague = { a: null, b: null };
+let selectedDraft  = { a: null, b: null };
+
+document.getElementById("load-leagues-btn").addEventListener("click", async () => {
+  const username = document.getElementById("username-input").value.trim();
+  if (!username) return;
+  const btn = document.getElementById("load-leagues-btn");
+  const status = document.getElementById("setup-status");
+  btn.disabled = true;
+  status.className = "setup-status";
+  status.textContent = "Looking up user...";
+
+  try {
+    const user = await fetchUserByUsername(username);
+    state.userId = user.user_id;
+    state.username = user.display_name || username;
+    status.textContent = "Found " + (user.display_name || username) + ". Loading leagues...";
+
+    const season = new Date().getFullYear();
+    allLeagues = await fetchUserLeagues(user.user_id, season);
+    if (!allLeagues || allLeagues.length === 0) {
+      // try previous year
+      allLeagues = await fetchUserLeagues(user.user_id, season - 1);
+    }
+
+    if (!allLeagues || allLeagues.length === 0) {
+      status.className = "setup-status error";
+      status.textContent = "No leagues found for this username.";
+      btn.disabled = false;
+      return;
+    }
+
+    status.className = "setup-status ok";
+    status.textContent = "Found " + allLeagues.length + " leagues.";
+    document.getElementById("league-pickers").style.display = "block";
+    renderLeagueList("a");
+    renderLeagueList("b");
+    btn.disabled = false;
+  } catch(e) {
+    status.className = "setup-status error";
+    status.textContent = "Could not find user. Check the username and try again.";
+    btn.disabled = false;
+  }
+});
+
+function renderLeagueList(slot) {
+  const container = document.getElementById("league-list-" + slot);
+  container.innerHTML = "";
+  allLeagues.forEach(league => {
+    const div = document.createElement("div");
+    div.className = "league-option";
+    div.innerHTML = '<strong>' + (league.name || "Unnamed League") + '</strong>' +
+      '<div class="league-option-meta">' + league.total_rosters + ' teams · ' + (league.season || "") + '</div>';
+    div.addEventListener("click", async () => {
+      container.querySelectorAll(".league-option").forEach(el => el.classList.remove("selected"));
+      div.classList.add("selected");
+      selectedLeague[slot] = league;
+      selectedDraft[slot] = null;
+      // load drafts
+      const draftField = document.getElementById("draft-field-" + slot);
+      const draftList  = document.getElementById("draft-list-"  + slot);
+      draftField.style.display = "block";
+      draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#666;padding:4px;">Loading drafts...</div>';
+      try {
+        const drafts = await fetchLeagueDrafts(league.league_id);
+        draftList.innerHTML = "";
+        if (!drafts || drafts.length === 0) {
+          draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#e07b7b;padding:4px;">No drafts found for this league.</div>';
+          return;
+        }
+        drafts.forEach(draft => {
+          const dd = document.createElement("div");
+          dd.className = "league-option";
+          const statusLabel = draft.status === "complete" ? "✓ Complete" : draft.status === "drafting" ? "🔴 Live" : draft.status;
+          dd.innerHTML = '<strong>' + (draft.type || "Draft") + ' — ' + (draft.season || "") + '</strong>' +
+            '<div class="league-option-meta">' + statusLabel + ' · ' + (draft.settings && draft.settings.rounds ? draft.settings.rounds + ' rounds' : '') + '</div>';
+          dd.addEventListener("click", () => {
+            draftList.querySelectorAll(".league-option").forEach(el => el.classList.remove("selected"));
+            dd.classList.add("selected");
+            selectedDraft[slot] = draft;
+            checkStartReady();
+          });
+          draftList.appendChild(dd);
+        });
+      } catch(e) {
+        draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#e07b7b;padding:4px;">Failed to load drafts.</div>';
+      }
+      checkStartReady();
+    });
+    container.appendChild(div);
+  });
+}
+
+function checkStartReady() {
+  const ready = selectedLeague.a && selectedDraft.a && selectedLeague.b && selectedDraft.b;
+  document.getElementById("start-btn").disabled = !ready;
+}
+
+document.getElementById("start-btn").addEventListener("click", () => {
+  state.leagues.a = { id: selectedLeague.a.league_id, name: selectedLeague.a.name, draftId: selectedDraft.a.draft_id };
+  state.leagues.b = { id: selectedLeague.b.league_id, name: selectedLeague.b.name, draftId: selectedDraft.b.draft_id };
+  save();
+  launchApp();
+});
+
+// ─── APP LAUNCH ────────────────────────────────────────────────────────────────
+function launchApp() {
+  document.getElementById("setup-screen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  document.getElementById("tab-a-name").textContent = (state.leagues.a && state.leagues.a.name) || "League A";
+  document.getElementById("tab-b-name").textContent = (state.leagues.b && state.leagues.b.name) || "League B";
+
+  renderBoard();
+  updateStats();
+  updatePicksPanel();
+  setActiveView(state.activeView || "ALL");
+  syncAll();
+
+  // auto-sync every 60 seconds
+  setInterval(syncAll, 60000);
+}
+
+// ─── VIEW / FILTER ─────────────────────────────────────────────────────────────
+function setActiveView(view) {
+  state.activeView = view;
+  save();
+  document.querySelectorAll(".league-tab").forEach(t => {
+    t.classList.remove("active-a", "active-b", "active-all");
+    if (t.dataset.view === view) {
+      if (view === "A") t.classList.add("active-a");
+      else if (view === "B") t.classList.add("active-b");
+      else t.classList.add("active-all");
+    }
+  });
+  renderBoard();
+  updateStats();
+  updatePicksPanel();
+  applyFilter();
+}
+
+document.querySelectorAll(".league-tab").forEach(tab => {
+  tab.addEventListener("click", () => setActiveView(tab.dataset.view));
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.filter = btn.dataset.filter;
+    save();
+    applyFilter();
+  });
+});
+
+function applyFilter() {
+  const f = state.filter;
+  document.querySelectorAll(".player-row").forEach(row => {
+    const pos = row.dataset.pos;
+    const rk = parseInt(row.dataset.rk);
+    let hidden = false;
+    if (f === "MINE") {
+      const m = state.manual[rk] || {};
+      const s = state.sleeper;
+      const isMineA = m.a === 2 || (s.a[rk] && s.a[rk].mine);
+      const isMineB = m.b === 2 || (s.b[rk] && s.b[rk].mine);
+      hidden = !isMineA && !isMineB;
+    } else if (f !== "ALL") {
+      hidden = pos !== f;
+    }
+    row.classList.toggle("hidden", hidden);
+  });
+  document.querySelectorAll(".tier-label").forEach(label => {
+    let allHidden = true;
+    let el = label.nextElementSibling;
+    while (el && !el.classList.contains("tier-label")) {
+      if (!el.classList.contains("hidden")) { allHidden = false; break; }
+      el = el.nextElementSibling;
+    }
+    label.style.display = allHidden ? "none" : "";
+  });
+}
+
+// ─── BOARD RENDER ──────────────────────────────────────────────────────────────
+function getEffectiveState(rk) {
+  // Returns { cls: string, dotA: string, dotB: string }
+  const v = state.activeView;
+  const m = state.manual[rk] || { a: 0, b: 0 };
+  const sA = state.sleeper.a[rk] || {};
+  const sB = state.sleeper.b[rk] || {};
+
+  // per-slot resolved state
+  const resolveSlot = (mVal, s) => {
+    if (s.mine)  return "mine";
+    if (s.taken) return "taken";
+    if (mVal === 2) return "mine";
+    if (mVal === 1) return "taken";
+    return "avail";
+  };
+  const stA = resolveSlot(m.a, sA);
+  const stB = resolveSlot(m.b, sB);
+
+  const dotA = stA === "mine" ? "mine-a" : stA === "taken" ? "taken-a" : "";
+  const dotB = stB === "mine" ? "mine-b" : stB === "taken" ? "taken-b" : "";
+
+  let cls = "";
+  if (v === "A") {
+    if (stA === "mine")  cls = "my-pick";
+    else if (stA === "taken") cls = "drafted";
+  } else if (v === "B") {
+    if (stB === "mine")  cls = "my-pick";
+    else if (stB === "taken") cls = "drafted";
+  } else { // ALL
+    const anyMine  = stA === "mine"  || stB === "mine";
+    const anyTaken = stA === "taken" || stB === "taken";
+    if (anyMine)  cls = "my-pick";
+    else if (anyTaken) cls = "drafted";
+  }
+  return { cls, dotA, dotB };
+}
+
+function renderBoard() {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+  let currentTier = null;
+
+  players.forEach(p => {
+    if (p.tier !== currentTier) {
+      currentTier = p.tier;
+      const tierEl = document.createElement("div");
+      tierEl.className = "tier-label";
+      tierEl.textContent = "Tier " + p.tier;
+      board.appendChild(tierEl);
+    }
+
+    const { cls, dotA, dotB } = getEffectiveState(p.rk);
+    const row = document.createElement("div");
+    row.className = "player-row" + (cls ? " " + cls : "");
+    row.dataset.rk = p.rk;
+    row.dataset.pos = p.pos;
+
+    const dotAcls = dotA ? ' ' + dotA : '';
+    const dotBcls = dotB ? ' ' + dotB : '';
+
+    row.innerHTML =
+      '<div class="rank-box">' + p.rk + '</div>' +
+      '<div class="pos-badge pos-' + p.pos + '">' + p.pos + '</div>' +
+      '<div class="player-name">' + p.name + '</div>' +
+      '<div class="pos-rank">' + p.pos + p.posRank + '</div>' +
+      '<div class="league-dots">' +
+        '<div class="ldot' + dotAcls + '" title="' + (state.leagues.a ? state.leagues.a.name : 'League A') + '"></div>' +
+        '<div class="ldot' + dotBcls + '" title="' + (state.leagues.b ? state.leagues.b.name : 'League B') + '"></div>' +
+      '</div>' +
+      '<div class="state-icon">' +
+        '<svg class="icon-available" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg>' +
+        '<svg class="icon-drafted" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>' +
+        '<svg class="icon-mine" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2.2"><polygon points="12,3 14.9,8.6 21,9.6 16.5,14 17.6,20 12,17 6.4,20 7.5,14 3,9.6 9.1,8.6" fill="rgba(200,168,75,0.2)"/></svg>' +
+      '</div>';
+
+    row.addEventListener("click", () => {
+      // Manual tap cycles the active view's slot
+      const slot = state.activeView === "B" ? "b" : "a";
+      if (!state.manual[p.rk]) state.manual[p.rk] = { a: 0, b: 0 };
+      // Don't override sleeper-confirmed picks manually
+      const s = state.sleeper[slot][p.rk] || {};
+      if (s.mine || s.taken) return; // sleeper controls this
+      state.manual[p.rk][slot] = (state.manual[p.rk][slot] + 1) % 3;
+      if (state.activeView === "ALL") {
+        // cycle both slots together when in all view
+        state.manual[p.rk].b = state.manual[p.rk].a;
+      }
+      save();
+      const { cls: newCls } = getEffectiveState(p.rk);
+      row.className = "player-row" + (newCls ? " " + newCls : "");
+      // update dots
+      updateRowDots(row, p.rk);
+      updateStats();
+      updatePicksPanel();
+      applyFilter();
+    });
+
+    board.appendChild(row);
+  });
+  applyFilter();
+}
+
+function updateRowDots(row, rk) {
+  const { dotA, dotB } = getEffectiveState(rk);
+  const dots = row.querySelectorAll(".ldot");
+  dots[0].className = "ldot" + (dotA ? " " + dotA : "");
+  dots[1].className = "ldot" + (dotB ? " " + dotB : "");
+}
+
+// ─── STATS ─────────────────────────────────────────────────────────────────────
+function updateStats() {
+  let mine = 0, taken = 0, avail = 0;
+  players.forEach(p => {
+    const { cls } = getEffectiveState(p.rk);
+    if (cls === "my-pick") mine++;
+    else if (cls === "drafted") taken++;
+    else avail++;
+  });
+  document.getElementById("mine-count").textContent  = mine;
+  document.getElementById("taken-count").textContent = taken;
+  document.getElementById("avail-count").textContent = avail;
+}
+
+// ─── PICKS PANEL ───────────────────────────────────────────────────────────────
+function updatePicksPanel() {
+  const list  = document.getElementById("picks-list");
+  const label = document.getElementById("picks-label");
+
+  const myPicks = players.filter(p => {
+    const m = state.manual[p.rk] || {};
+    const sA = state.sleeper.a[p.rk] || {};
+    const sB = state.sleeper.b[p.rk] || {};
+    return m.a === 2 || m.b === 2 || sA.mine || sB.mine;
+  });
+
+  label.textContent = myPicks.length + (myPicks.length === 1 ? " player" : " players");
+
+  if (myPicks.length === 0) {
+    list.innerHTML = '<span class="my-picks-empty">No picks yet — tap twice on a player to claim them</span>';
+    return;
+  }
+
+  list.innerHTML = myPicks.map(p => {
+    const m  = state.manual[p.rk] || {};
+    const sA = state.sleeper.a[p.rk] || {};
+    const sB = state.sleeper.b[p.rk] || {};
+    const leagues = [];
+    if (m.a === 2 || sA.mine) leagues.push(state.leagues.a ? state.leagues.a.name : "A");
+    if (m.b === 2 || sB.mine) leagues.push(state.leagues.b ? state.leagues.b.name : "B");
+    const src = sA.mine || sB.mine ? "sleeper" : "manual";
+    return '<div class="pick-chip" data-rk="' + p.rk + '" title="' + leagues.join(" & ") + (src==="sleeper"?" · from Sleeper":"") + '">' +
+      '<span class="chip-pos">' + p.pos + '</span>' +
+      p.name +
+      '<span class="chip-rk">#' + p.rk + '</span>' +
+      (src === "sleeper" ? '<span class="chip-src">SLP</span>' : '') +
+    '</div>';
+  }).join("");
+
+  list.querySelectorAll(".pick-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const rk = parseInt(chip.dataset.rk);
+      const sA = state.sleeper.a[rk] || {};
+      const sB = state.sleeper.b[rk] || {};
+      if (sA.mine || sB.mine) return; // can't remove sleeper picks manually
+      if (state.manual[rk]) { state.manual[rk].a = 0; state.manual[rk].b = 0; }
+      save();
+      renderBoard();
+      updateStats();
+      updatePicksPanel();
+    });
+  });
+}
+
+// ─── CONTROLS ──────────────────────────────────────────────────────────────────
+document.getElementById("sync-now-btn").addEventListener("click", syncAll);
+
+document.getElementById("settings-btn").addEventListener("click", () => {
+  if (confirm("Go back to league setup? Your draft progress will be kept.")) {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("setup-screen").style.display = "block";
+  }
+});
+
+document.getElementById("reset-btn").addEventListener("click", () => {
+  if (confirm("Clear all manual picks? (Sleeper-synced picks are unaffected)")) {
+    state.manual = {};
+    save();
+    renderBoard();
+    updateStats();
+    updatePicksPanel();
+  }
+});
+
+// ─── BOOT ──────────────────────────────────────────────────────────────────────
+// If we have saved league config, go straight to app
+if (state.leagues.a && state.leagues.b) {
+  document.getElementById("username-input").value = state.username || "tonybologna69";
+  launchApp();
+}
+</script>
+
+</body>
+</html>
