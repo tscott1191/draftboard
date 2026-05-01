@@ -5,564 +5,646 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Superflex Top-48 Draft Board</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #2d6a3f;
-    --green-light: #3d8a55;
-    --gold: #c8a84b;
-    --cream: #f5f0e8;
-    --dark: #1a1a1a;
-    --muted: #888;
-    --row-alt: #ede8de;
-    --struck: #b0a898;
-    --league-a: #4fa3d1;
-    --league-b: #b97fe0;
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --border: #e2e6ea;
+    --border-strong: #ced4da;
+    --text: #1a1d23;
+    --text-muted: #6c757d;
+    --text-light: #adb5bd;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --red-light: #fef2f2;
+    --red: #dc2626;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --league-a: #2563eb;
+    --league-b: #7c3aed;
+    --pos-qb: #dc2626;
+    --pos-rb: #2563eb;
+    --pos-wr: #16a34a;
+    --pos-te: #d97706;
   }
 
-- { box-sizing: border-box; margin: 0; padding: 0; }
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 body {
-background: var(–dark);
-font-family: ‘DM Sans’, sans-serif;
+background: var(–bg);
+font-family: ‘Inter’, -apple-system, BlinkMacSystemFont, sans-serif;
+color: var(–text);
 min-height: 100vh;
-padding: 24px 16px 48px;
-background-image: repeating-linear-gradient(
-0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px
-);
+font-size: 14px;
+line-height: 1.5;
 }
 
-header { text-align: center; margin-bottom: 20px; }
-header h1 {
-font-family: ‘Bebas Neue’, cursive;
-font-size: clamp(2rem, 6vw, 3.4rem);
-color: var(–gold);
-letter-spacing: 0.06em;
-line-height: 1;
-text-shadow: 0 2px 12px rgba(200,168,75,0.3);
+/* ── HEADER ── */
+.app-header {
+background: var(–surface);
+border-bottom: 1px solid var(–border);
+padding: 16px 20px 12px;
+position: sticky;
+top: 0;
+z-index: 100;
 }
-header p {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.72rem;
-color: var(–muted);
-letter-spacing: 0.15em;
-text-transform: uppercase;
-margin-top: 5px;
+.app-header h1 {
+font-size: 18px;
+font-weight: 700;
+letter-spacing: -0.3px;
+color: var(–text);
 }
-
-/* SETUP SCREEN */
-#setup-screen {
-max-width: 500px;
-margin: 0 auto;
-background: #111;
-border: 1px solid #2a2a2a;
-border-radius: 6px;
-padding: 24px 20px;
+.app-header p {
+font-size: 12px;
+color: var(–text-muted);
+margin-top: 1px;
 }
 
-.setup-title {
-font-family: ‘Bebas Neue’, cursive;
-font-size: 1.1rem;
-letter-spacing: 0.14em;
-color: var(–gold);
-margin-bottom: 18px;
-}
+/* ── CONTAINER ── */
+.container { max-width: 640px; margin: 0 auto; padding: 0 16px 48px; }
 
-.setup-field { margin-bottom: 14px; }
-.setup-field label {
-display: block;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 5px;
-}
-.setup-field input, .setup-field select {
-width: 100%;
-background: #1a1a1a;
-border: 1px solid #333;
-border-radius: 3px;
-color: #ddd;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.82rem;
-padding: 8px 10px;
-outline: none;
-transition: border-color 0.15s;
-}
-.setup-field input:focus, .setup-field select:focus { border-color: var(–gold); }
-.setup-field select option { background: #1a1a1a; }
+/* ── SETUP SCREEN ── */
+#setup-screen { padding-top: 24px; }
 
-.league-block {
-background: #161616;
-border: 1px solid #252525;
-border-radius: 4px;
-padding: 14px;
+.card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 20px;
 margin-bottom: 12px;
 }
-.league-block-title {
-font-family: ‘Bebas Neue’, cursive;
-font-size: 0.9rem;
-letter-spacing: 0.12em;
+.card-title {
+font-size: 13px;
+font-weight: 600;
+color: var(–text-muted);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+margin-bottom: 14px;
+}
+
+.field { margin-bottom: 12px; }
+.field label {
+display: block;
+font-size: 12px;
+font-weight: 500;
+color: var(–text-muted);
+margin-bottom: 4px;
+}
+.field input {
+width: 100%;
+background: var(–bg);
+border: 1px solid var(–border-strong);
+border-radius: 7px;
+color: var(–text);
+font-family: inherit;
+font-size: 14px;
+padding: 9px 12px;
+outline: none;
+transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field input:focus {
+border-color: var(–accent);
+box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.league-block {
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 14px;
 margin-bottom: 10px;
 }
+.league-block-title {
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.league-block-title::before {
+content: ‘’;
+display: inline-block;
+width: 8px; height: 8px;
+border-radius: 50%;
+}
 .league-block-title.a { color: var(–league-a); }
+.league-block-title.a::before { background: var(–league-a); }
 .league-block-title.b { color: var(–league-b); }
+.league-block-title.b::before { background: var(–league-b); }
+
+.league-option-list { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
+.league-option {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 7px;
+padding: 10px 12px;
+cursor: pointer;
+font-size: 13px;
+font-weight: 500;
+color: var(–text);
+transition: border-color 0.15s, background 0.15s;
+-webkit-user-select: none;
+user-select: none;
+}
+.league-option:active { background: var(–bg); }
+.league-option .league-option-meta {
+font-size: 11px;
+color: var(–text-muted);
+font-weight: 400;
+margin-top: 2px;
+}
+.league-option.selected {
+border-color: var(–accent);
+background: var(–accent-light);
+color: var(–accent);
+}
+.league-option.selected .league-option-meta { color: #93bbfd; }
+
+.sub-label {
+font-size: 11px;
+font-weight: 500;
+color: var(–text-muted);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+margin: 10px 0 5px;
+}
 
 .btn-primary {
 width: 100%;
-background: var(–green);
+background: var(–accent);
 border: none;
-border-radius: 3px;
+border-radius: 8px;
 color: #fff;
-font-family: ‘Bebas Neue’, cursive;
-font-size: 1rem;
-letter-spacing: 0.14em;
+font-family: inherit;
+font-size: 14px;
+font-weight: 600;
 padding: 11px;
 cursor: pointer;
-transition: background 0.15s;
+transition: background 0.15s, opacity 0.15s;
 margin-top: 4px;
 }
-.btn-primary:hover { background: var(–green-light); }
-.btn-primary:disabled { background: #333; color: #666; cursor: default; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-primary:active { background: #1e40af; }
+.btn-primary:disabled { opacity: 0.4; cursor: default; }
 
 .setup-status {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.68rem;
-color: var(–muted);
+font-size: 12px;
+color: var(–text-muted);
 text-align: center;
-margin-top: 10px;
-min-height: 18px;
+margin-top: 8px;
+min-height: 16px;
 }
-.setup-status.error { color: #e07b7b; }
-.setup-status.ok    { color: var(–green-light); }
+.setup-status.error { color: var(–red); }
+.setup-status.ok    { color: var(–green); }
 
-.league-select-list {
-display: flex;
-flex-direction: column;
-gap: 6px;
-margin-top: 6px;
-}
-.league-option {
-background: #1e1e1e;
-border: 1px solid #333;
-border-radius: 3px;
-padding: 8px 10px;
-cursor: pointer;
-font-size: 0.82rem;
-color: #ccc;
-font-family: ‘DM Sans’, sans-serif;
-transition: border-color 0.15s, background 0.15s;
-}
-.league-option:hover { border-color: var(–gold); background: #222; }
-.league-option .league-option-meta {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-color: #666;
-margin-top: 2px;
-}
-.league-option.selected { border-color: var(–gold); background: rgba(200,168,75,0.07); color: var(–gold); }
-
-/* MAIN APP */
+/* ── MAIN APP ── */
 #app { display: none; }
 
+/* League tabs */
 .league-tabs {
 display: flex;
-max-width: 680px;
-margin: 0 auto 0;
-gap: 0;
+background: var(–surface);
+border-bottom: 1px solid var(–border);
+position: sticky;
+top: 61px;
+z-index: 99;
 }
-
 .league-tab {
 flex: 1;
-padding: 9px 10px;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.7rem;
-letter-spacing: 0.08em;
-text-transform: uppercase;
+padding: 11px 8px;
+font-size: 12px;
+font-weight: 500;
 text-align: center;
 cursor: pointer;
-border: 1px solid #2a2a2a;
-background: #0d0d0d;
-color: #555;
-transition: all 0.15s;
-position: relative;
-}
-.league-tab:first-child { border-radius: 4px 0 0 0; }
-.league-tab:last-child  { border-radius: 0 4px 0 0; }
-
-.league-tab.active-a { color: var(–league-a); border-bottom-color: var(–league-a); background: rgba(79,163,209,0.06); }
-.league-tab.active-b { color: var(–league-b); border-bottom-color: var(–league-b); background: rgba(185,127,224,0.06); }
-
-.league-tab .sync-dot {
-display: inline-block;
-width: 6px; height: 6px;
-border-radius: 50%;
-background: #333;
-margin-left: 5px;
-vertical-align: middle;
-}
-.league-tab.synced .sync-dot   { background: var(–green-light); }
-.league-tab.syncing .sync-dot  { background: var(–gold); animation: pulse 1s infinite; }
-.league-tab.sync-err .sync-dot { background: #e07b7b; }
-
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.tap-hint {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-color: #444;
-text-align: center;
-margin: 10px 0 14px;
-letter-spacing: 0.06em;
-}
-.tap-hint span { color: #666; }
-
-.stats-bar {
-display: flex;
-max-width: 680px;
-margin: 0 auto 16px;
-}
-.stat-box {
-flex: 1;
-text-align: center;
-padding: 9px 6px;
-border: 1px solid #2a2a2a;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-color: var(–muted);
-text-transform: uppercase;
-letter-spacing: 0.08em;
-background: #111;
-}
-.stat-box:first-child { border-radius: 0 0 0 3px; border-top: none; }
-.stat-box:last-child  { border-radius: 0 0 3px 0; border-top: none; }
-.stat-box .stat-num {
-display: block;
-font-size: 1.3rem;
-font-family: ‘Bebas Neue’, cursive;
-letter-spacing: 0.04em;
-margin-bottom: 1px;
-}
-.stat-box.mine .stat-num { color: var(–gold); }
-.stat-box.gone .stat-num { color: #555; }
-.stat-box.left .stat-num { color: var(–green-light); }
-
-.controls {
-display: flex;
-justify-content: center;
-gap: 7px;
-margin-bottom: 14px;
-flex-wrap: wrap;
-max-width: 680px;
-margin-left: auto;
-margin-right: auto;
-}
-.filter-btn {
-background: transparent;
-border: 1px solid #333;
-color: #666;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.66rem;
-letter-spacing: 0.1em;
-padding: 5px 12px;
-border-radius: 3px;
-cursor: pointer;
-transition: all 0.15s;
-text-transform: uppercase;
-}
-.filter-btn:hover { border-color: #555; color: #999; }
-.filter-btn.active { border-color: var(–gold); color: var(–gold); background: rgba(200,168,75,0.08); }
-.filter-btn.pos-QB.active { border-color: #e07b3a; color: #e07b3a; background: rgba(224,123,58,0.08); }
-.filter-btn.pos-RB.active { border-color: #4fa3d1; color: #4fa3d1; background: rgba(79,163,209,0.08); }
-.filter-btn.pos-WR.active { border-color: #5cb87a; color: #5cb87a; background: rgba(92,184,122,0.08); }
-.filter-btn.pos-TE.active { border-color: #b97fe0; color: #b97fe0; background: rgba(185,127,224,0.08); }
-
-/* MY PICKS PANEL */
-.my-picks-panel {
-max-width: 680px;
-margin: 0 auto 14px;
-background: #111;
-border: 1px solid #2a2a2a;
-border-radius: 4px;
+color: var(–text-muted);
+border-bottom: 2px solid transparent;
+transition: color 0.15s, border-color 0.15s;
+-webkit-user-select: none;
+user-select: none;
+white-space: nowrap;
 overflow: hidden;
+text-overflow: ellipsis;
 }
-.my-picks-header {
-font-family: ‘Bebas Neue’, cursive;
-font-size: 0.95rem;
-letter-spacing: 0.14em;
-color: var(–gold);
-padding: 8px 14px 7px;
-border-bottom: 1px solid #1e1e1e;
+.league-tab:active { background: var(–bg); }
+.league-tab.active-all { color: var(–text); border-bottom-color: var(–text); }
+.league-tab.active-a   { color: var(–league-a); border-bottom-color: var(–league-a); }
+.league-tab.active-b   { color: var(–league-b); border-bottom-color: var(–league-b); }
+.sync-dot {
+display: inline-block;
+width: 5px; height: 5px;
+border-radius: 50%;
+background: var(–border-strong);
+margin-left: 4px;
+vertical-align: middle;
+position: relative;
+top: -1px;
+}
+.league-tab.synced .sync-dot   { background: var(–green); }
+.league-tab.syncing .sync-dot  { background: var(–amber); animation: blink 0.8s infinite; }
+.league-tab.sync-err .sync-dot { background: var(–red); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* Stats bar */
+.stats-row {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 8px;
+margin: 14px 0;
+}
+.stat-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 10px 12px;
+text-align: center;
+}
+.stat-card .stat-num {
+font-size: 22px;
+font-weight: 700;
+letter-spacing: -0.5px;
+display: block;
+line-height: 1.1;
+}
+.stat-card .stat-label {
+font-size: 11px;
+color: var(–text-muted);
+margin-top: 2px;
+}
+.stat-card.mine .stat-num { color: var(–green); }
+.stat-card.gone .stat-num { color: var(–text-muted); }
+.stat-card.left .stat-num { color: var(–accent); }
+
+/* Sync bar */
+.sync-bar {
+font-size: 11px;
+color: var(–text-light);
+text-align: right;
+margin-bottom: 8px;
+}
+.sync-bar span { color: var(–green); }
+
+/* Tap hint */
+.tap-hint {
+font-size: 11px;
+color: var(–text-light);
+margin-bottom: 10px;
+display: flex;
+flex-wrap: wrap;
+gap: 4px 10px;
+align-items: center;
+}
+.tap-hint .hint-item {
 display: flex;
 align-items: center;
-gap: 10px;
+gap: 4px;
 }
-.my-picks-header .pick-count {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.66rem;
-color: #555;
-font-weight: 400;
-letter-spacing: 0.05em;
+.hint-badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-size: 10px;
+font-weight: 600;
+padding: 1px 6px;
+border-radius: 4px;
+white-space: nowrap;
 }
-.my-picks-list {
+.hint-badge.taken { background: #fee2e2; color: var(–red); }
+.hint-badge.mine  { background: #dcfce7; color: var(–green); }
+.hint-badge.undo  { background: var(–bg); color: var(–text-muted); border: 1px solid var(–border); }
+
+/* Filter pills */
+.filter-row {
+display: flex;
+gap: 6px;
+margin-bottom: 12px;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+padding-bottom: 2px;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.pill {
+flex-shrink: 0;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 20px;
+color: var(–text-muted);
+font-family: inherit;
+font-size: 12px;
+font-weight: 500;
+padding: 5px 12px;
+cursor: pointer;
+transition: all 0.15s;
+white-space: nowrap;
+-webkit-user-select: none;
+user-select: none;
+}
+.pill:active { background: var(–bg); }
+.pill.active          { background: var(–text); border-color: var(–text); color: #fff; }
+.pill.active.mine-pill{ background: var(–green); border-color: var(–green); color: #fff; }
+.pill.active.pos-QB   { background: var(–pos-qb); border-color: var(–pos-qb); color: #fff; }
+.pill.active.pos-RB   { background: var(–pos-rb); border-color: var(–pos-rb); color: #fff; }
+.pill.active.pos-WR   { background: var(–pos-wr); border-color: var(–pos-wr); color: #fff; }
+.pill.active.pos-TE   { background: var(–pos-te); border-color: var(–pos-te); color: #fff; }
+
+/* My roster panel */
+.roster-panel {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 10px;
+margin-bottom: 12px;
+overflow: hidden;
+}
+.roster-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px 14px;
+border-bottom: 1px solid var(–border);
+}
+.roster-header-left {
+font-size: 13px;
+font-weight: 600;
+color: var(–text);
+}
+.roster-count {
+font-size: 11px;
+font-weight: 500;
+color: var(–text-muted);
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 2px 8px;
+}
+.roster-body {
 display: flex;
 flex-wrap: wrap;
 gap: 6px;
-padding: 9px 12px 11px;
-min-height: 40px;
+padding: 10px 12px 12px;
+min-height: 42px;
+align-items: center;
 }
-.my-picks-empty {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.66rem;
-color: #333;
-letter-spacing: 0.06em;
-align-self: center;
+.roster-empty {
+font-size: 12px;
+color: var(–text-light);
 }
 .pick-chip {
-display: flex;
+display: inline-flex;
 align-items: center;
-gap: 5px;
-background: rgba(200,168,75,0.1);
-border: 1px solid rgba(200,168,75,0.22);
-border-radius: 3px;
-padding: 3px 8px 3px 6px;
-font-size: 0.74rem;
-font-weight: 600;
-color: #d4b96a;
+gap: 4px;
+background: var(–green-light);
+border: 1px solid #bbf7d0;
+border-radius: 6px;
+padding: 3px 8px;
+font-size: 12px;
+font-weight: 500;
+color: var(–green);
 cursor: pointer;
 transition: background 0.15s;
+-webkit-user-select: none;
+user-select: none;
 }
-.pick-chip:hover { background: rgba(200,168,75,0.2); }
-.pick-chip .chip-pos { font-family: ‘DM Mono’, monospace; font-size: 0.58rem; opacity: 0.7; }
-.pick-chip .chip-rk  { font-family: ‘DM Mono’, monospace; font-size: 0.56rem; opacity: 0.4; }
-.pick-chip .chip-src {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.52rem;
+.pick-chip:active { background: #dcfce7; }
+.chip-pos {
+font-size: 10px;
+font-weight: 600;
+opacity: 0.7;
+}
+.chip-rk {
+font-size: 10px;
 opacity: 0.5;
-background: rgba(200,168,75,0.15);
-border-radius: 2px;
-padding: 1px 3px;
+}
+.chip-src {
+font-size: 9px;
+font-weight: 600;
+background: #16a34a22;
+border-radius: 3px;
+padding: 0 3px;
+letter-spacing: 0.03em;
 }
 
-/* BOARD */
-.board {
-max-width: 680px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 3px;
-}
+/* Board */
+.board { display: flex; flex-direction: column; gap: 2px; }
+
 .tier-label {
-font-family: ‘Bebas Neue’, cursive;
-font-size: 0.95rem;
-letter-spacing: 0.14em;
-color: var(–green-light);
-padding: 12px 0 4px 10px;
-border-bottom: 1px solid #2a2a2a;
-margin-top: 8px;
+font-size: 11px;
+font-weight: 600;
+color: var(–text-muted);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+padding: 14px 4px 5px;
+border-bottom: 1px solid var(–border);
+margin-top: 4px;
 }
+.tier-label:first-child { margin-top: 0; }
+
+/* Player row */
 .player-row {
 display: flex;
 align-items: center;
-background: var(–cream);
-border-radius: 2px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 8px;
 overflow: hidden;
 cursor: pointer;
-transition: opacity 0.2s, transform 0.1s;
+transition: background 0.1s, opacity 0.2s;
+-webkit-user-select: none;
 user-select: none;
-position: relative;
+min-height: 48px;
 }
-.player-row:nth-child(even) { background: var(–row-alt); }
-.player-row:hover { transform: translateX(2px); }
+.player-row:active { background: var(–bg); }
 .player-row.hidden { display: none; }
 
-/* off board (drafted by others in current league) */
-.player-row.drafted { opacity: 0.28; }
-.player-row.drafted .player-name { text-decoration: line-through; color: var(–struck); }
-.player-row.drafted .rank-box { background: #555; }
+/* drafted by others */
+.player-row.drafted {
+opacity: 0.38;
+background: var(–bg);
+}
+.player-row.drafted .player-name {
+text-decoration: line-through;
+color: var(–text-muted);
+}
 
-/* my pick in current league */
+/* my pick */
 .player-row.my-pick {
-background: #27200d !important;
-border-left: 3px solid var(–gold);
+background: var(–green-light);
+border-color: #86efac;
 }
-.player-row.my-pick .player-name { color: var(–gold); }
-.player-row.my-pick .rank-box { background: #7a5e18; }
+.player-row.my-pick .player-name { color: var(–green); font-weight: 600; }
+.player-row.my-pick .rank-box { background: var(–green); }
 
-/* sleeper auto-drafted by others */
-.player-row.sleeper-taken { opacity: 0.28; }
-.player-row.sleeper-taken .player-name { text-decoration: line-through; color: var(–struck); }
-.player-row.sleeper-taken .rank-box { background: #555; }
-
-/* sleeper: my pick */
-.player-row.sleeper-mine {
-background: #1a2010 !important;
-border-left: 3px solid var(–green-light);
-}
-.player-row.sleeper-mine .player-name { color: #7ec89a; }
-.player-row.sleeper-mine .rank-box { background: #2a5a38; }
-
+/* rank box */
 .rank-box {
-width: 38px; min-width: 38px;
-background: var(–green);
+width: 36px;
+min-width: 36px;
+background: #334155;
 color: #fff;
-font-family: ‘Bebas Neue’, cursive;
-font-size: 1.05rem;
+font-size: 12px;
+font-weight: 700;
+text-align: center;
 align-self: stretch;
 display: flex;
 align-items: center;
 justify-content: center;
 transition: background 0.2s;
+letter-spacing: -0.3px;
 }
+.player-row.drafted .rank-box { background: #cbd5e1; }
+
+/* pos badge */
 .pos-badge {
-width: 34px; min-width: 34px;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.62rem;
-font-weight: 500;
-letter-spacing: 0.06em;
+width: 32px;
+min-width: 32px;
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 0.04em;
+text-align: center;
 align-self: stretch;
 display: flex;
 align-items: center;
 justify-content: center;
+border-right: 1px solid var(–border);
 }
-.pos-QB { background: rgba(224,123,58,0.18); color: #c0622a; }
-.pos-RB { background: rgba(79,163,209,0.18); color: #2e7fa8; }
-.pos-WR { background: rgba(92,184,122,0.18); color: #2e8a50; }
-.pos-TE { background: rgba(185,127,224,0.18); color: #8a4ec0; }
+.pos-QB { background: #fef2f2; color: var(–pos-qb); }
+.pos-RB { background: #eff6ff; color: var(–pos-rb); }
+.pos-WR { background: #f0fdf4; color: var(–pos-wr); }
+.pos-TE { background: #fffbeb; color: var(–pos-te); }
 
+.player-row.drafted .pos-badge { opacity: 0.5; }
+
+/* player name */
 .player-name {
 flex: 1;
-font-size: 0.9rem;
-font-weight: 600;
-color: var(–dark);
-padding: 10px 10px;
+font-size: 14px;
+font-weight: 500;
+color: var(–text);
+padding: 0 10px;
 transition: color 0.2s;
-}
-.pos-rank {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-color: var(–muted);
-padding-right: 6px;
 white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
 
-/* league indicators on each row */
+/* pos rank */
+.pos-rank {
+font-size: 11px;
+color: var(–text-light);
+padding-right: 6px;
+white-space: nowrap;
+font-weight: 500;
+}
+
+/* league dots */
 .league-dots {
 display: flex;
 gap: 3px;
-padding-right: 8px;
+padding: 0 8px 0 2px;
 align-items: center;
 }
 .ldot {
 width: 7px; height: 7px;
 border-radius: 50%;
-background: #2a2a2a;
+background: var(–border);
 transition: background 0.2s;
+flex-shrink: 0;
 }
-.ldot.taken-a { background: #555; }
-.ldot.mine-a  { background: var(–league-a); box-shadow: 0 0 4px var(–league-a); }
-.ldot.taken-b { background: #555; }
-.ldot.mine-b  { background: var(–league-b); box-shadow: 0 0 4px var(–league-b); }
+.ldot.taken-a { background: #94a3b8; }
+.ldot.mine-a  { background: var(–league-a); }
+.ldot.taken-b { background: #94a3b8; }
+.ldot.mine-b  { background: var(–league-b); }
 
+/* state icon */
 .state-icon {
-width: 38px; min-width: 38px;
-display: flex; align-items: center; justify-content: center;
-padding: 10px 0;
+width: 36px;
+min-width: 36px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-left: 1px solid var(–border);
+align-self: stretch;
 }
-.state-icon svg { width: 18px; height: 18px; }
-.icon-available { display: block; }
+.state-icon svg { width: 16px; height: 16px; }
+.icon-available { display: flex; }
 .icon-drafted   { display: none; }
 .icon-mine      { display: none; }
-.player-row.drafted   .icon-available { display: none; }
-.player-row.drafted   .icon-drafted   { display: block; }
-.player-row.my-pick   .icon-available { display: none; }
-.player-row.my-pick   .icon-mine      { display: block; }
-.player-row.sleeper-taken .icon-available { display: none; }
-.player-row.sleeper-taken .icon-drafted   { display: block; }
-.player-row.sleeper-mine  .icon-available { display: none; }
-.player-row.sleeper-mine  .icon-mine      { display: block; }
+.player-row.drafted .icon-available { display: none; }
+.player-row.drafted .icon-drafted   { display: flex; }
+.player-row.my-pick .icon-available { display: none; }
+.player-row.my-pick .icon-mine      { display: flex; }
 
+/* bottom buttons */
 .bottom-bar {
-max-width: 680px;
-margin: 24px auto 0;
 display: flex;
-gap: 10px;
-justify-content: center;
+gap: 8px;
+margin-top: 20px;
+flex-wrap: wrap;
 }
 .btn-sm {
-background: transparent;
-border: 1px solid #333;
-color: #555;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.66rem;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-padding: 7px 16px;
-border-radius: 3px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 7px;
+color: var(–text-muted);
+font-family: inherit;
+font-size: 12px;
+font-weight: 500;
+padding: 7px 14px;
 cursor: pointer;
 transition: all 0.15s;
+flex-shrink: 0;
 }
-.btn-sm:hover { border-color: #666; color: #888; }
-.btn-sm.danger:hover { border-color: #e07b7b; color: #e07b7b; }
-
-.sync-bar {
-max-width: 680px;
-margin: 0 auto 10px;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-color: #444;
-text-align: right;
-padding: 0 4px;
-}
-.sync-bar span { color: var(–green-light); }
+.btn-sm:hover { border-color: var(–border-strong); color: var(–text); }
+.btn-sm:active { background: var(–bg); }
+.btn-sm.danger:hover { border-color: #fca5a5; color: var(–red); background: var(–red-light); }
 </style>
 
 </head>
 <body>
 
-<header>
+<div class="app-header">
   <h1>Superflex Top-48</h1>
   <p>2025 Fantasy Draft Board</p>
-</header>
+</div>
+
+<div class="container">
 
 <!-- SETUP SCREEN -->
 
 <div id="setup-screen">
-  <div class="setup-title">Connect Your Leagues</div>
-
-  <div class="setup-field">
-    <label>Sleeper Username</label>
-    <input type="text" id="username-input" placeholder="e.g. tonybologna69" value="tonybologna69">
+  <div style="height:16px"></div>
+  <div class="card">
+    <div class="card-title">Connect Your Leagues</div>
+    <div class="field">
+      <label>Sleeper Username</label>
+      <input type="text" id="username-input" placeholder="e.g. tonybologna69" value="tonybologna69" autocapitalize="none" autocorrect="off">
+    </div>
+    <button class="btn-primary" id="load-leagues-btn">Load My Leagues</button>
+    <div class="setup-status" id="setup-status"></div>
   </div>
 
-<button class="btn-primary" id="load-leagues-btn">Load My Leagues</button>
-
-  <div class="setup-status" id="setup-status"></div>
-
-  <div id="league-pickers" style="display:none; margin-top:18px;">
-    <div class="league-block">
-      <div class="league-block-title a">● League 1 — Grizzly Dads</div>
-      <div class="setup-field">
-        <label>Select League</label>
-        <div class="league-select-list" id="league-list-a"></div>
-      </div>
-      <div class="setup-field" id="draft-field-a" style="display:none;">
-        <label>Select Draft</label>
-        <div class="league-select-list" id="draft-list-a"></div>
+  <div id="league-pickers" style="display:none;">
+    <div class="card">
+      <div class="league-block-title a">League 1 — Grizzly Dads</div>
+      <div class="sub-label">Select league</div>
+      <div class="league-option-list" id="league-list-a"></div>
+      <div id="draft-field-a" style="display:none;">
+        <div class="sub-label" style="margin-top:12px;">Select draft</div>
+        <div class="league-option-list" id="draft-list-a"></div>
       </div>
     </div>
 
 ```
-<div class="league-block">
-  <div class="league-block-title b">● League 2 — Susan's Dynasty</div>
-  <div class="setup-field">
-    <label>Select League</label>
-    <div class="league-select-list" id="league-list-b"></div>
-  </div>
-  <div class="setup-field" id="draft-field-b" style="display:none;">
-    <label>Select Draft</label>
-    <div class="league-select-list" id="draft-list-b"></div>
+<div class="card">
+  <div class="league-block-title b">League 2 — Susan's Dynasty</div>
+  <div class="sub-label">Select league</div>
+  <div class="league-option-list" id="league-list-b"></div>
+  <div id="draft-field-b" style="display:none;">
+    <div class="sub-label" style="margin-top:12px;">Select draft</div>
+    <div class="league-option-list" id="draft-list-b"></div>
   </div>
 </div>
 
@@ -575,51 +657,64 @@ padding: 0 4px;
 <!-- MAIN APP -->
 
 <div id="app">
-  <div class="league-tabs">
-    <div class="league-tab" id="tab-all" data-view="ALL">All Leagues <span class="sync-dot"></span></div>
-    <div class="league-tab" id="tab-a"   data-view="A">● <span id="tab-a-name">League A</span> <span class="sync-dot"></span></div>
-    <div class="league-tab" id="tab-b"   data-view="B">● <span id="tab-b-name">League B</span> <span class="sync-dot"></span></div>
+  <div class="league-tabs" style="margin:0 -16px;">
+    <div class="league-tab" id="tab-all" data-view="ALL">All <span class="sync-dot"></span></div>
+    <div class="league-tab" id="tab-a"   data-view="A"><span id="tab-a-name">League A</span> <span class="sync-dot"></span></div>
+    <div class="league-tab" id="tab-b"   data-view="B"><span id="tab-b-name">League B</span> <span class="sync-dot"></span></div>
   </div>
 
-  <div class="stats-bar">
-    <div class="stat-box mine"><span class="stat-num" id="mine-count">0</span>My Picks</div>
-    <div class="stat-box gone"><span class="stat-num" id="taken-count">0</span>Off Board</div>
-    <div class="stat-box left"><span class="stat-num" id="avail-count">48</span>Available</div>
+  <div class="stats-row">
+    <div class="stat-card mine">
+      <span class="stat-num" id="mine-count">0</span>
+      <div class="stat-label">My Picks</div>
+    </div>
+    <div class="stat-card gone">
+      <span class="stat-num" id="taken-count">0</span>
+      <div class="stat-label">Off Board</div>
+    </div>
+    <div class="stat-card left">
+      <span class="stat-num" id="avail-count">48</span>
+      <div class="stat-label">Available</div>
+    </div>
   </div>
 
   <div class="tap-hint">
-    <span>1 tap</span> = off board &nbsp;·&nbsp; <span>2 taps</span> = my pick ⭐ &nbsp;·&nbsp; <span>3 taps</span> = undo &nbsp;·&nbsp; Sleeper syncs automatically
+    <span class="hint-item"><span class="hint-badge taken">1 tap</span> off board</span>
+    <span class="hint-item"><span class="hint-badge mine">2 taps</span> my pick</span>
+    <span class="hint-item"><span class="hint-badge undo">3 taps</span> undo</span>
   </div>
 
   <div class="sync-bar">Last sync: <span id="last-sync-time">—</span></div>
 
-  <div class="controls">
-    <button class="filter-btn active" data-filter="ALL">All</button>
-    <button class="filter-btn" data-filter="MINE">⭐ My Picks</button>
-    <button class="filter-btn pos-QB" data-filter="QB">QB</button>
-    <button class="filter-btn pos-RB" data-filter="RB">RB</button>
-    <button class="filter-btn pos-WR" data-filter="WR">WR</button>
-    <button class="filter-btn pos-TE" data-filter="TE">TE</button>
+  <div class="filter-row">
+    <button class="pill active" data-filter="ALL">All</button>
+    <button class="pill mine-pill" data-filter="MINE">⭐ My Picks</button>
+    <button class="pill pos-QB" data-filter="QB">QB</button>
+    <button class="pill pos-RB" data-filter="RB">RB</button>
+    <button class="pill pos-WR" data-filter="WR">WR</button>
+    <button class="pill pos-TE" data-filter="TE">TE</button>
   </div>
 
-  <div class="my-picks-panel">
-    <div class="my-picks-header">
-      My Roster
-      <span class="pick-count" id="picks-label">0 players</span>
+  <div class="roster-panel">
+    <div class="roster-header">
+      <span class="roster-header-left">My Roster</span>
+      <span class="roster-count" id="picks-label">0 players</span>
     </div>
-    <div class="my-picks-list" id="picks-list">
-      <span class="my-picks-empty">No picks yet</span>
+    <div class="roster-body" id="picks-list">
+      <span class="roster-empty">No picks yet — double-tap a player to claim them</span>
     </div>
   </div>
 
   <div class="board" id="board"></div>
 
   <div class="bottom-bar">
-    <button class="btn-sm" id="sync-now-btn">↻ Sync Sleeper Now</button>
+    <button class="btn-sm" id="sync-now-btn">↻ Sync Now</button>
     <button class="btn-sm" id="settings-btn">⚙ Settings</button>
     <button class="btn-sm danger" id="reset-btn">Reset Manual Picks</button>
   </div>
 </div>
+
+</div><!-- /container -->
 
 <script>
 // ─── PLAYER DATA ───────────────────────────────────────────────────────────────
@@ -674,62 +769,40 @@ const players = [
   { rk:48, name:"Barion Brown",      pos:"WR", posRank:22, tier:9 },
 ];
 
-// normalize name for fuzzy matching against Sleeper
 function normName(s) {
-  return s.toLowerCase()
-    .replace(/['\u2019]/g,'')
-    .replace(/[^a-z0-9]/g,' ')
-    .replace(/\s+/g,' ').trim();
+  return s.toLowerCase().replace(/['\u2019]/g,'').replace(/[^a-z0-9]/g,' ').replace(/\s+/g,' ').trim();
 }
 
 // ─── STATE ─────────────────────────────────────────────────────────────────────
 const SK = "sf48_v3";
 let state = JSON.parse(localStorage.getItem(SK) || "null") || {
-  userId: null,
-  username: null,
-  leagues: { a: null, b: null },   // { id, name, draftId }
-  manual: {},                       // rk -> 0/1/2 per-league: { a: 0, b: 0 }
-  sleeper: { a: {}, b: {} },        // rk -> { taken: bool, mine: bool }
-  activeView: "ALL",
-  filter: "ALL",
+  userId: null, username: null,
+  leagues: { a: null, b: null },
+  manual: {}, sleeper: { a: {}, b: {} },
+  activeView: "ALL", filter: "ALL",
 };
-
 function save() { localStorage.setItem(SK, JSON.stringify(state)); }
 
 // ─── SLEEPER API ───────────────────────────────────────────────────────────────
 const API = "https://api.sleeper.app/v1";
-
 async function sleeperGet(path) {
   const r = await fetch(API + path);
   if (!r.ok) throw new Error("HTTP " + r.status);
   return r.json();
 }
+async function fetchUserByUsername(u) { return sleeperGet("/user/" + encodeURIComponent(u)); }
+async function fetchUserLeagues(uid, season) { return sleeperGet("/user/" + uid + "/leagues/nfl/" + season); }
+async function fetchLeagueDrafts(lid) { return sleeperGet("/league/" + lid + "/drafts"); }
+async function fetchDraftPicks(did) { return sleeperGet("/draft/" + did + "/picks"); }
 
-async function fetchUserByUsername(username) {
-  return sleeperGet("/user/" + encodeURIComponent(username));
-}
-
-async function fetchUserLeagues(userId, season) {
-  return sleeperGet("/user/" + userId + "/leagues/nfl/" + season);
-}
-
-async function fetchLeagueDrafts(leagueId) {
-  return sleeperGet("/league/" + leagueId + "/drafts");
-}
-
-async function fetchDraftPicks(draftId) {
-  return sleeperGet("/draft/" + draftId + "/picks");
-}
-
-// Match a Sleeper player name to one of our players
-function matchPlayer(sleeperFirst, sleeperLast) {
-  const full = normName((sleeperFirst || "") + " " + (sleeperLast || ""));
+function matchPlayer(first, last) {
+  const full = normName((first||"") + " " + (last||""));
   return players.find(p => normName(p.name) === full) || null;
 }
 
-async function syncDraft(league, slotKey) {
+async function syncDraft(league, slot) {
   if (!league || !league.draftId) return;
-  setTabSync(slotKey, "syncing");
+  setTabSync(slot, "syncing");
   try {
     const picks = await fetchDraftPicks(league.draftId);
     const result = {};
@@ -740,37 +813,25 @@ async function syncDraft(league, slotKey) {
       const isMine = pick.picked_by === state.userId;
       result[matched.rk] = { taken: !isMine, mine: isMine };
     }
-    state.sleeper[slotKey] = result;
+    state.sleeper[slot] = result;
     save();
-    setTabSync(slotKey, "synced");
+    setTabSync(slot, "synced");
     document.getElementById("last-sync-time").textContent = new Date().toLocaleTimeString();
-    renderBoard();
-    updateStats();
-    updatePicksPanel();
+    renderBoard(); updateStats(); updatePicksPanel();
   } catch(e) {
-    setTabSync(slotKey, "sync-err");
-    console.warn("Sync failed for", slotKey, e);
+    setTabSync(slot, "sync-err");
   }
 }
-
-async function syncAll() {
-  await Promise.all([
-    syncDraft(state.leagues.a, "a"),
-    syncDraft(state.leagues.b, "b"),
-  ]);
-}
+async function syncAll() { await Promise.all([syncDraft(state.leagues.a,"a"), syncDraft(state.leagues.b,"b")]); }
 
 function setTabSync(slot, status) {
-  const tabId = slot === "a" ? "tab-a" : "tab-b";
-  const tab = document.getElementById(tabId);
-  tab.classList.remove("synced", "syncing", "sync-err");
+  const tab = document.getElementById(slot === "a" ? "tab-a" : "tab-b");
+  tab.classList.remove("synced","syncing","sync-err");
   tab.classList.add(status);
 }
 
 // ─── SETUP FLOW ────────────────────────────────────────────────────────────────
-let allLeagues = [];
-let selectedLeague = { a: null, b: null };
-let selectedDraft  = { a: null, b: null };
+let allLeagues = [], selectedLeague = {a:null,b:null}, selectedDraft = {a:null,b:null};
 
 document.getElementById("load-leagues-btn").addEventListener("click", async () => {
   const username = document.getElementById("username-input").value.trim();
@@ -780,32 +841,23 @@ document.getElementById("load-leagues-btn").addEventListener("click", async () =
   btn.disabled = true;
   status.className = "setup-status";
   status.textContent = "Looking up user...";
-
   try {
     const user = await fetchUserByUsername(username);
     state.userId = user.user_id;
     state.username = user.display_name || username;
     status.textContent = "Found " + (user.display_name || username) + ". Loading leagues...";
-
     const season = new Date().getFullYear();
     allLeagues = await fetchUserLeagues(user.user_id, season);
-    if (!allLeagues || allLeagues.length === 0) {
-      // try previous year
-      allLeagues = await fetchUserLeagues(user.user_id, season - 1);
-    }
-
+    if (!allLeagues || allLeagues.length === 0) allLeagues = await fetchUserLeagues(user.user_id, season - 1);
     if (!allLeagues || allLeagues.length === 0) {
       status.className = "setup-status error";
       status.textContent = "No leagues found for this username.";
-      btn.disabled = false;
-      return;
+      btn.disabled = false; return;
     }
-
     status.className = "setup-status ok";
-    status.textContent = "Found " + allLeagues.length + " leagues.";
+    status.textContent = "Found " + allLeagues.length + " league" + (allLeagues.length !== 1 ? "s" : "") + ".";
     document.getElementById("league-pickers").style.display = "block";
-    renderLeagueList("a");
-    renderLeagueList("b");
+    renderLeagueList("a"); renderLeagueList("b");
     btn.disabled = false;
   } catch(e) {
     status.className = "setup-status error";
@@ -820,31 +872,30 @@ function renderLeagueList(slot) {
   allLeagues.forEach(league => {
     const div = document.createElement("div");
     div.className = "league-option";
-    div.innerHTML = '<strong>' + (league.name || "Unnamed League") + '</strong>' +
+    div.innerHTML = '<div>' + (league.name || "Unnamed League") + '</div>' +
       '<div class="league-option-meta">' + league.total_rosters + ' teams · ' + (league.season || "") + '</div>';
     div.addEventListener("click", async () => {
       container.querySelectorAll(".league-option").forEach(el => el.classList.remove("selected"));
       div.classList.add("selected");
       selectedLeague[slot] = league;
       selectedDraft[slot] = null;
-      // load drafts
       const draftField = document.getElementById("draft-field-" + slot);
       const draftList  = document.getElementById("draft-list-"  + slot);
       draftField.style.display = "block";
-      draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#666;padding:4px;">Loading drafts...</div>';
+      draftList.innerHTML = '<div class="league-option" style="color:var(--text-muted);pointer-events:none;">Loading drafts...</div>';
       try {
         const drafts = await fetchLeagueDrafts(league.league_id);
         draftList.innerHTML = "";
         if (!drafts || drafts.length === 0) {
-          draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#e07b7b;padding:4px;">No drafts found for this league.</div>';
+          draftList.innerHTML = '<div style="font-size:12px;color:var(--red);padding:6px 0;">No drafts found.</div>';
           return;
         }
         drafts.forEach(draft => {
           const dd = document.createElement("div");
           dd.className = "league-option";
-          const statusLabel = draft.status === "complete" ? "✓ Complete" : draft.status === "drafting" ? "🔴 Live" : draft.status;
-          dd.innerHTML = '<strong>' + (draft.type || "Draft") + ' — ' + (draft.season || "") + '</strong>' +
-            '<div class="league-option-meta">' + statusLabel + ' · ' + (draft.settings && draft.settings.rounds ? draft.settings.rounds + ' rounds' : '') + '</div>';
+          const statusLabel = draft.status === "complete" ? "Complete" : draft.status === "drafting" ? "🔴 Live" : draft.status;
+          dd.innerHTML = '<div>' + (draft.type || "Draft") + ' · ' + (draft.season || "") + '</div>' +
+            '<div class="league-option-meta">' + statusLabel + (draft.settings && draft.settings.rounds ? ' · ' + draft.settings.rounds + ' rounds' : '') + '</div>';
           dd.addEventListener("click", () => {
             draftList.querySelectorAll(".league-option").forEach(el => el.classList.remove("selected"));
             dd.classList.add("selected");
@@ -854,7 +905,7 @@ function renderLeagueList(slot) {
           draftList.appendChild(dd);
         });
       } catch(e) {
-        draftList.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:0.68rem;color:#e07b7b;padding:4px;">Failed to load drafts.</div>';
+        draftList.innerHTML = '<div style="font-size:12px;color:var(--red);padding:6px 0;">Failed to load drafts.</div>';
       }
       checkStartReady();
     });
@@ -863,8 +914,7 @@ function renderLeagueList(slot) {
 }
 
 function checkStartReady() {
-  const ready = selectedLeague.a && selectedDraft.a && selectedLeague.b && selectedDraft.b;
-  document.getElementById("start-btn").disabled = !ready;
+  document.getElementById("start-btn").disabled = !(selectedLeague.a && selectedDraft.a && selectedLeague.b && selectedDraft.b);
 }
 
 document.getElementById("start-btn").addEventListener("click", () => {
@@ -878,48 +928,37 @@ document.getElementById("start-btn").addEventListener("click", () => {
 function launchApp() {
   document.getElementById("setup-screen").style.display = "none";
   document.getElementById("app").style.display = "block";
-
   document.getElementById("tab-a-name").textContent = (state.leagues.a && state.leagues.a.name) || "League A";
   document.getElementById("tab-b-name").textContent = (state.leagues.b && state.leagues.b.name) || "League B";
-
-  renderBoard();
-  updateStats();
-  updatePicksPanel();
+  renderBoard(); updateStats(); updatePicksPanel();
   setActiveView(state.activeView || "ALL");
   syncAll();
-
-  // auto-sync every 60 seconds
   setInterval(syncAll, 60000);
 }
 
 // ─── VIEW / FILTER ─────────────────────────────────────────────────────────────
 function setActiveView(view) {
-  state.activeView = view;
-  save();
+  state.activeView = view; save();
   document.querySelectorAll(".league-tab").forEach(t => {
-    t.classList.remove("active-a", "active-b", "active-all");
+    t.classList.remove("active-all","active-a","active-b");
     if (t.dataset.view === view) {
       if (view === "A") t.classList.add("active-a");
       else if (view === "B") t.classList.add("active-b");
       else t.classList.add("active-all");
     }
   });
-  renderBoard();
-  updateStats();
-  updatePicksPanel();
-  applyFilter();
+  renderBoard(); updateStats(); updatePicksPanel(); applyFilter();
 }
 
 document.querySelectorAll(".league-tab").forEach(tab => {
   tab.addEventListener("click", () => setActiveView(tab.dataset.view));
 });
 
-document.querySelectorAll(".filter-btn").forEach(btn => {
+document.querySelectorAll(".pill").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".pill").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    state.filter = btn.dataset.filter;
-    save();
+    state.filter = btn.dataset.filter; save();
     applyFilter();
   });
 });
@@ -927,18 +966,13 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 function applyFilter() {
   const f = state.filter;
   document.querySelectorAll(".player-row").forEach(row => {
-    const pos = row.dataset.pos;
-    const rk = parseInt(row.dataset.rk);
+    const pos = row.dataset.pos, rk = parseInt(row.dataset.rk);
     let hidden = false;
     if (f === "MINE") {
       const m = state.manual[rk] || {};
-      const s = state.sleeper;
-      const isMineA = m.a === 2 || (s.a[rk] && s.a[rk].mine);
-      const isMineB = m.b === 2 || (s.b[rk] && s.b[rk].mine);
-      hidden = !isMineA && !isMineB;
-    } else if (f !== "ALL") {
-      hidden = pos !== f;
-    }
+      const sA = state.sleeper.a[rk] || {}, sB = state.sleeper.b[rk] || {};
+      hidden = !(m.a === 2 || m.b === 2 || sA.mine || sB.mine);
+    } else if (f !== "ALL") { hidden = pos !== f; }
     row.classList.toggle("hidden", hidden);
   });
   document.querySelectorAll(".tier-label").forEach(label => {
@@ -952,40 +986,22 @@ function applyFilter() {
   });
 }
 
-// ─── BOARD RENDER ──────────────────────────────────────────────────────────────
+// ─── BOARD ─────────────────────────────────────────────────────────────────────
 function getEffectiveState(rk) {
-  // Returns { cls: string, dotA: string, dotB: string }
   const v = state.activeView;
-  const m = state.manual[rk] || { a: 0, b: 0 };
-  const sA = state.sleeper.a[rk] || {};
-  const sB = state.sleeper.b[rk] || {};
-
-  // per-slot resolved state
-  const resolveSlot = (mVal, s) => {
-    if (s.mine)  return "mine";
-    if (s.taken) return "taken";
-    if (mVal === 2) return "mine";
-    if (mVal === 1) return "taken";
-    return "avail";
-  };
-  const stA = resolveSlot(m.a, sA);
-  const stB = resolveSlot(m.b, sB);
-
+  const m = state.manual[rk] || {a:0, b:0};
+  const sA = state.sleeper.a[rk] || {}, sB = state.sleeper.b[rk] || {};
+  const resolve = (mVal, s) => s.mine ? "mine" : s.taken ? "taken" : mVal === 2 ? "mine" : mVal === 1 ? "taken" : "avail";
+  const stA = resolve(m.a, sA), stB = resolve(m.b, sB);
   const dotA = stA === "mine" ? "mine-a" : stA === "taken" ? "taken-a" : "";
   const dotB = stB === "mine" ? "mine-b" : stB === "taken" ? "taken-b" : "";
-
   let cls = "";
-  if (v === "A") {
-    if (stA === "mine")  cls = "my-pick";
-    else if (stA === "taken") cls = "drafted";
-  } else if (v === "B") {
-    if (stB === "mine")  cls = "my-pick";
-    else if (stB === "taken") cls = "drafted";
-  } else { // ALL
-    const anyMine  = stA === "mine"  || stB === "mine";
+  if (v === "A") { cls = stA === "mine" ? "my-pick" : stA === "taken" ? "drafted" : ""; }
+  else if (v === "B") { cls = stB === "mine" ? "my-pick" : stB === "taken" ? "drafted" : ""; }
+  else {
+    const anyMine = stA === "mine" || stB === "mine";
     const anyTaken = stA === "taken" || stB === "taken";
-    if (anyMine)  cls = "my-pick";
-    else if (anyTaken) cls = "drafted";
+    cls = anyMine ? "my-pick" : anyTaken ? "drafted" : "";
   }
   return { cls, dotA, dotB };
 }
@@ -994,72 +1010,50 @@ function renderBoard() {
   const board = document.getElementById("board");
   board.innerHTML = "";
   let currentTier = null;
-
   players.forEach(p => {
     if (p.tier !== currentTier) {
       currentTier = p.tier;
-      const tierEl = document.createElement("div");
-      tierEl.className = "tier-label";
-      tierEl.textContent = "Tier " + p.tier;
-      board.appendChild(tierEl);
+      const t = document.createElement("div");
+      t.className = "tier-label";
+      t.textContent = "Tier " + p.tier;
+      board.appendChild(t);
     }
-
     const { cls, dotA, dotB } = getEffectiveState(p.rk);
     const row = document.createElement("div");
     row.className = "player-row" + (cls ? " " + cls : "");
-    row.dataset.rk = p.rk;
-    row.dataset.pos = p.pos;
-
-    const dotAcls = dotA ? ' ' + dotA : '';
-    const dotBcls = dotB ? ' ' + dotB : '';
-
+    row.dataset.rk = p.rk; row.dataset.pos = p.pos;
     row.innerHTML =
       '<div class="rank-box">' + p.rk + '</div>' +
       '<div class="pos-badge pos-' + p.pos + '">' + p.pos + '</div>' +
       '<div class="player-name">' + p.name + '</div>' +
       '<div class="pos-rank">' + p.pos + p.posRank + '</div>' +
       '<div class="league-dots">' +
-        '<div class="ldot' + dotAcls + '" title="' + (state.leagues.a ? state.leagues.a.name : 'League A') + '"></div>' +
-        '<div class="ldot' + dotBcls + '" title="' + (state.leagues.b ? state.leagues.b.name : 'League B') + '"></div>' +
+        '<div class="ldot' + (dotA ? " " + dotA : "") + '"></div>' +
+        '<div class="ldot' + (dotB ? " " + dotB : "") + '"></div>' +
       '</div>' +
       '<div class="state-icon">' +
-        '<svg class="icon-available" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg>' +
-        '<svg class="icon-drafted" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>' +
-        '<svg class="icon-mine" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="2.2"><polygon points="12,3 14.9,8.6 21,9.6 16.5,14 17.6,20 12,17 6.4,20 7.5,14 3,9.6 9.1,8.6" fill="rgba(200,168,75,0.2)"/></svg>' +
+        '<svg class="icon-available" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>' +
+        '<svg class="icon-drafted" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>' +
+        '<svg class="icon-mine" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="7,12.5 10.5,16 17,9"/></svg>' +
       '</div>';
-
     row.addEventListener("click", () => {
-      // Manual tap cycles the active view's slot
       const slot = state.activeView === "B" ? "b" : "a";
-      if (!state.manual[p.rk]) state.manual[p.rk] = { a: 0, b: 0 };
-      // Don't override sleeper-confirmed picks manually
+      if (!state.manual[p.rk]) state.manual[p.rk] = {a:0, b:0};
       const s = state.sleeper[slot][p.rk] || {};
-      if (s.mine || s.taken) return; // sleeper controls this
+      if (s.mine || s.taken) return;
       state.manual[p.rk][slot] = (state.manual[p.rk][slot] + 1) % 3;
-      if (state.activeView === "ALL") {
-        // cycle both slots together when in all view
-        state.manual[p.rk].b = state.manual[p.rk].a;
-      }
+      if (state.activeView === "ALL") state.manual[p.rk].b = state.manual[p.rk].a;
       save();
-      const { cls: newCls } = getEffectiveState(p.rk);
+      const { cls: newCls, dotA: nA, dotB: nB } = getEffectiveState(p.rk);
       row.className = "player-row" + (newCls ? " " + newCls : "");
-      // update dots
-      updateRowDots(row, p.rk);
-      updateStats();
-      updatePicksPanel();
-      applyFilter();
+      const dots = row.querySelectorAll(".ldot");
+      dots[0].className = "ldot" + (nA ? " " + nA : "");
+      dots[1].className = "ldot" + (nB ? " " + nB : "");
+      updateStats(); updatePicksPanel(); applyFilter();
     });
-
     board.appendChild(row);
   });
   applyFilter();
-}
-
-function updateRowDots(row, rk) {
-  const { dotA, dotB } = getEffectiveState(rk);
-  const dots = row.querySelectorAll(".ldot");
-  dots[0].className = "ldot" + (dotA ? " " + dotA : "");
-  dots[1].className = "ldot" + (dotB ? " " + dotB : "");
 }
 
 // ─── STATS ─────────────────────────────────────────────────────────────────────
@@ -1078,76 +1072,54 @@ function updateStats() {
 
 // ─── PICKS PANEL ───────────────────────────────────────────────────────────────
 function updatePicksPanel() {
-  const list  = document.getElementById("picks-list");
+  const list = document.getElementById("picks-list");
   const label = document.getElementById("picks-label");
-
   const myPicks = players.filter(p => {
     const m = state.manual[p.rk] || {};
-    const sA = state.sleeper.a[p.rk] || {};
-    const sB = state.sleeper.b[p.rk] || {};
+    const sA = state.sleeper.a[p.rk] || {}, sB = state.sleeper.b[p.rk] || {};
     return m.a === 2 || m.b === 2 || sA.mine || sB.mine;
   });
-
   label.textContent = myPicks.length + (myPicks.length === 1 ? " player" : " players");
-
   if (myPicks.length === 0) {
-    list.innerHTML = '<span class="my-picks-empty">No picks yet — tap twice on a player to claim them</span>';
+    list.innerHTML = '<span class="roster-empty">No picks yet — double-tap a player to claim them</span>';
     return;
   }
-
   list.innerHTML = myPicks.map(p => {
-    const m  = state.manual[p.rk] || {};
-    const sA = state.sleeper.a[p.rk] || {};
-    const sB = state.sleeper.b[p.rk] || {};
-    const leagues = [];
-    if (m.a === 2 || sA.mine) leagues.push(state.leagues.a ? state.leagues.a.name : "A");
-    if (m.b === 2 || sB.mine) leagues.push(state.leagues.b ? state.leagues.b.name : "B");
-    const src = sA.mine || sB.mine ? "sleeper" : "manual";
-    return '<div class="pick-chip" data-rk="' + p.rk + '" title="' + leagues.join(" & ") + (src==="sleeper"?" · from Sleeper":"") + '">' +
+    const sA = state.sleeper.a[p.rk] || {}, sB = state.sleeper.b[p.rk] || {};
+    const fromSleeper = sA.mine || sB.mine;
+    return '<div class="pick-chip" data-rk="' + p.rk + '">' +
       '<span class="chip-pos">' + p.pos + '</span>' +
       p.name +
       '<span class="chip-rk">#' + p.rk + '</span>' +
-      (src === "sleeper" ? '<span class="chip-src">SLP</span>' : '') +
+      (fromSleeper ? '<span class="chip-src">SLP</span>' : '') +
     '</div>';
   }).join("");
-
   list.querySelectorAll(".pick-chip").forEach(chip => {
     chip.addEventListener("click", () => {
       const rk = parseInt(chip.dataset.rk);
-      const sA = state.sleeper.a[rk] || {};
-      const sB = state.sleeper.b[rk] || {};
-      if (sA.mine || sB.mine) return; // can't remove sleeper picks manually
+      const sA = state.sleeper.a[rk] || {}, sB = state.sleeper.b[rk] || {};
+      if (sA.mine || sB.mine) return;
       if (state.manual[rk]) { state.manual[rk].a = 0; state.manual[rk].b = 0; }
-      save();
-      renderBoard();
-      updateStats();
-      updatePicksPanel();
+      save(); renderBoard(); updateStats(); updatePicksPanel();
     });
   });
 }
 
 // ─── CONTROLS ──────────────────────────────────────────────────────────────────
 document.getElementById("sync-now-btn").addEventListener("click", syncAll);
-
 document.getElementById("settings-btn").addEventListener("click", () => {
   if (confirm("Go back to league setup? Your draft progress will be kept.")) {
     document.getElementById("app").style.display = "none";
     document.getElementById("setup-screen").style.display = "block";
   }
 });
-
 document.getElementById("reset-btn").addEventListener("click", () => {
-  if (confirm("Clear all manual picks? (Sleeper-synced picks are unaffected)")) {
-    state.manual = {};
-    save();
-    renderBoard();
-    updateStats();
-    updatePicksPanel();
+  if (confirm("Clear all manual picks? Sleeper-synced picks are unaffected.")) {
+    state.manual = {}; save(); renderBoard(); updateStats(); updatePicksPanel();
   }
 });
 
 // ─── BOOT ──────────────────────────────────────────────────────────────────────
-// If we have saved league config, go straight to app
 if (state.leagues.a && state.leagues.b) {
   document.getElementById("username-input").value = state.username || "tonybologna69";
   launchApp();
