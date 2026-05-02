@@ -45,11 +45,8 @@ line-height: 1.5;
 /* ── HEADER ── */
 .app-header {
 background: var(–surface);
-border-bottom: 1px solid var(–border);
+border-bottom: 2px solid var(–border);
 padding: 16px 20px 12px;
-position: sticky;
-top: 0;
-z-index: 100;
 }
 .app-header h1 {
 font-size: 18px;
@@ -210,10 +207,10 @@ min-height: 16px;
 .league-tabs {
 display: flex;
 background: var(–surface);
-border-bottom: 1px solid var(–border);
-position: sticky;
-top: 61px;
-z-index: 99;
+border: 1px solid var(–border);
+border-radius: 10px;
+margin-top: 14px;
+overflow: hidden;
 }
 .league-tab {
 flex: 1;
@@ -223,18 +220,19 @@ font-weight: 500;
 text-align: center;
 cursor: pointer;
 color: var(–text-muted);
-border-bottom: 2px solid transparent;
-transition: color 0.15s, border-color 0.15s;
+border-bottom: 3px solid transparent;
+transition: color 0.15s, border-color 0.15s, background 0.15s;
 -webkit-user-select: none;
 user-select: none;
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 }
+.league-tab + .league-tab { border-left: 1px solid var(–border); }
 .league-tab:active { background: var(–bg); }
-.league-tab.active-all { color: var(–text); border-bottom-color: var(–text); }
-.league-tab.active-a   { color: var(–league-a); border-bottom-color: var(–league-a); }
-.league-tab.active-b   { color: var(–league-b); border-bottom-color: var(–league-b); }
+.league-tab.active-all { color: var(–text); border-bottom-color: var(–text); background: #f8f9fa; }
+.league-tab.active-a   { color: var(–league-a); border-bottom-color: var(–league-a); background: var(–accent-light); }
+.league-tab.active-b   { color: var(–league-b); border-bottom-color: var(–league-b); background: #f5f3ff; }
 .sync-dot {
 display: inline-block;
 width: 5px; height: 5px;
@@ -331,18 +329,19 @@ padding-bottom: 2px;
 .pill {
 flex-shrink: 0;
 background: var(–surface);
-border: 1px solid var(–border);
+border: 1.5px solid var(–border-strong);
 border-radius: 20px;
 color: var(–text-muted);
 font-family: inherit;
 font-size: 12px;
-font-weight: 500;
-padding: 5px 12px;
+font-weight: 600;
+padding: 6px 14px;
 cursor: pointer;
 transition: all 0.15s;
 white-space: nowrap;
 -webkit-user-select: none;
 user-select: none;
+box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 .pill:active { background: var(–bg); }
 .pill.active          { background: var(–text); border-color: var(–text); color: #fff; }
@@ -355,7 +354,7 @@ user-select: none;
 /* My roster panel */
 .roster-panel {
 background: var(–surface);
-border: 1px solid var(–border);
+border: 1.5px solid var(–border-strong);
 border-radius: 10px;
 margin-bottom: 12px;
 overflow: hidden;
@@ -365,7 +364,8 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 10px 14px;
-border-bottom: 1px solid var(–border);
+border-bottom: 1.5px solid var(–border);
+background: var(–bg);
 }
 .roster-header-left {
 font-size: 13px;
@@ -448,14 +448,15 @@ margin-top: 4px;
 display: flex;
 align-items: center;
 background: var(–surface);
-border: 1px solid var(–border);
+border: 1.5px solid var(–border);
 border-radius: 8px;
 overflow: hidden;
 cursor: pointer;
-transition: background 0.1s, opacity 0.2s;
+transition: background 0.1s, opacity 0.2s, border-color 0.15s;
 -webkit-user-select: none;
 user-select: none;
-min-height: 48px;
+min-height: 50px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .player-row:active { background: var(–bg); }
 .player-row.hidden { display: none; }
@@ -586,18 +587,19 @@ flex-wrap: wrap;
 }
 .btn-sm {
 background: var(–surface);
-border: 1px solid var(–border);
+border: 1.5px solid var(–border-strong);
 border-radius: 7px;
 color: var(–text-muted);
 font-family: inherit;
 font-size: 12px;
-font-weight: 500;
-padding: 7px 14px;
+font-weight: 600;
+padding: 8px 14px;
 cursor: pointer;
 transition: all 0.15s;
 flex-shrink: 0;
+box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
-.btn-sm:hover { border-color: var(–border-strong); color: var(–text); }
+.btn-sm:hover { border-color: var(–border-strong); color: var(–text); background: var(–bg); }
 .btn-sm:active { background: var(–bg); }
 .btn-sm.danger:hover { border-color: #fca5a5; color: var(–red); background: var(–red-light); }
 </style>
@@ -657,7 +659,7 @@ flex-shrink: 0;
 <!-- MAIN APP -->
 
 <div id="app">
-  <div class="league-tabs" style="margin:0 -16px;">
+  <div class="league-tabs">
     <div class="league-tab" id="tab-all" data-view="ALL">All <span class="sync-dot"></span></div>
     <div class="league-tab" id="tab-a"   data-view="A"><span id="tab-a-name">League A</span> <span class="sync-dot"></span></div>
     <div class="league-tab" id="tab-b"   data-view="B"><span id="tab-b-name">League B</span> <span class="sync-dot"></span></div>
